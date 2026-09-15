@@ -1,0 +1,528 @@
+.header {
+  position: fixed;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  font-family: var(--font-heading), sans-serif;
+}
+
+.topbar {
+  display: none;
+  background: linear-gradient(135deg, #ff8c00 0%, #5b47d9 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 16px rgba(91, 71, 217, 0.35);
+  padding: 5px 40px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.topbarRight {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.topbarContactLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 400;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.topbarContactLink:hover {
+  color: #ffffff;
+}
+
+.topbarContactIcon {
+  color: #ffe0b3;
+  flex-shrink: 0;
+}
+
+.topbarDivider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.admissionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+.admissionBadge:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.socialIcon {
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+.socialIcon:hover {
+  transform: scale(1.2);
+  opacity: 0.85;
+}
+
+.mainNav {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(91, 71, 217, 0.1);
+  box-shadow: 0 4px 24px rgba(91, 71, 217, 0.08);
+}
+
+.navInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 16px;
+
+  height: 80px;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.logoBox {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+.logoImg {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.desktopMenu {
+  display: none;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+.navLinkUnderline {
+  position: relative;
+  text-decoration: none;
+  color: #2b2540;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 6px 2px;
+  letter-spacing: 0.01em;
+}
+.navLinkUnderline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff8c00, #5b47d9);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+.navLinkUnderline:hover {
+  color: #5b47d9;
+}
+.navLinkUnderline:hover::after {
+  width: 100%;
+}
+
+.dropdownTrigger {
+  color: #2b2540;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 2px;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  font-family: inherit;
+}
+
+.dropdownTrigger:hover {
+  color: #5b47d9;
+}
+
+.chevron {
+  transition: transform 0.2s;
+  color: #5b47d9;
+}
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdownWrapper {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding-top: 8px;
+  z-index: 1000;
+  min-width: 220px;
+}
+
+.dropdownPanel {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(91, 71, 217, 0.16);
+  border: 1px solid rgba(91, 71, 217, 0.12);
+  overflow: hidden;
+}
+
+.dropdownItem {
+  display: block;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.dropdownItem:hover {
+  background: #fdf3e9;
+  color: #5b47d9;
+  border-left-color: #ff8c00;
+}
+
+.navAuthBtns {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.btnLogin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid #5b47d9;
+  color: #5b47d9;
+  background: transparent;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btnLogin:hover {
+  background: #f2f0fc;
+}
+
+.btnGetStarted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #ff8c00 0%, #5b47d9 100%);
+  box-shadow: 0 2px 8px rgba(91, 71, 217, 0.32);
+  transition:
+    box-shadow 0.2s,
+    transform 0.15s;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btnGetStarted:hover {
+  box-shadow: 0 4px 16px rgba(91, 71, 217, 0.44);
+  transform: translateY(-1px);
+}
+
+.hamburgerBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.mainNavAccent {
+  height: 3px;
+  background: linear-gradient(90deg, #ff8c00 0%, #5b47d9 50%, #ff8c00 100%);
+  background-size: 200% 100%;
+  animation: shimmer 4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(91, 71, 217, 0.35);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  touch-action: none;
+}
+.mobileOverlayOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100dvh;
+  z-index: 9999;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #ffffff;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.mobileDrawerOpen {
+  transform: translateX(0);
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #ece8fb;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.drawerCloseBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.drawerContactStrip {
+  background: linear-gradient(135deg, #ff8c00 0%, #5b47d9 100%);
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawerContactLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.drawerAuthGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 16px 20px;
+  border-bottom: 2px solid #ece8fb;
+}
+
+.drawerBtnLogin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid #5b47d9;
+  color: #5b47d9;
+  background: transparent;
+}
+
+.drawerBtnGetStarted {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #ff8c00 0%, #5b47d9 100%);
+  box-shadow: 0 2px 10px rgba(91, 71, 217, 0.32);
+}
+
+.drawerMenuList {
+  padding: 8px 20px;
+}
+
+.drawerMenuItem {
+  border-bottom: 1px solid #ece8fb;
+}
+
+.drawerMenuTrigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  font-size: 15px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2b2540;
+  text-align: left;
+  font-family: inherit;
+}
+
+.drawerMenuLink {
+  display: block;
+  padding: 13px 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #2b2540;
+}
+
+.drawerSubList {
+  padding-left: 8px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawerSubLink {
+  padding: 9px 12px;
+  font-size: 14px;
+  color: #6b7280;
+  text-decoration: none;
+  border-radius: 8px;
+  display: block;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.drawerSubLink:hover {
+  color: #5b47d9;
+  background: #f2f0fc;
+}
+
+.drawerSocials {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 0 40px;
+  border-top: 1px solid #ece8fb;
+}
+
+.drawerSocialIcon {
+  color: #5b47d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #f2f0fc;
+  border: 1px solid #d9d2f7;
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+.drawerSocialIcon:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+@media (min-width: 1024px) {
+  .topbar {
+    display: flex !important;
+  }
+  .desktopMenu {
+    display: flex !important;
+  }
+  .navAuthBtns {
+    display: flex !important;
+  }
+  .hamburgerBtn {
+    display: none !important;
+  }
+}
+
+@media (min-width: 480px) {
+  .mobileDrawer {
+    width: 360px;
+  }
+}
