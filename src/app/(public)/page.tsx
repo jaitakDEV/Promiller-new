@@ -1,4 +1,4 @@
-import HeroSection from "@/features/public/components/hero-section";
+import HeroSection from "@/features/public/components/Hero-section";
 import AboutPage from "@/features/public/components/Aboutmdssc";
 import { BannerCarousel } from "@/features/public/components/BannerCarousel";
 import { ProgrammesSection } from "@/features/public/components/ProgrammesSection";

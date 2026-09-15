@@ -47,12 +47,11 @@ export default function HeroSection() {
       >
         <div className={styles.hs__inner}>
           <h1 className={styles.hs__h1}>
-            <span className={styles.hs__orange}>Flour Milling</span>{" "}
-            <span className={styles.hs__white}>Without The</span>
+            <span className={styles.hs__white}>Flour Milling Without The</span>{" "}
+            <span className={styles.hs__orange}>Investment,</span>
             <br />
-            <span className={styles.hs__accent}>
-              Investment, Savings Without The Hassle.
-            </span>
+            <span className={styles.hs__gradient}>Savings</span>{" "}
+            <span className={styles.hs__white}>Without The Hassle.</span>
           </h1>
 
           <p className={styles.hs__desc}>
@@ -61,23 +60,27 @@ export default function HeroSection() {
             extra profit and savings we generate for you.
           </p>
 
-          <div className={styles.hs__trust}>
-            <div className={styles.hs__trustCard}>
-              <div className={styles.hs__trustValue}>30–40%</div>
-              <div className={styles.hs__trustLabel}>Lower power costs</div>
-            </div>
-
-            <div className={styles.hs__trustCard}>
-              <div className={styles.hs__trustValue}>275+</div>
-              <div className={styles.hs__trustLabel}>
-                Installations worldwide
-              </div>
-            </div>
-
-            <div className={styles.hs__trustCard}>
-              <div className={styles.hs__trustValue}>60+</div>
-              <div className={styles.hs__trustLabel}>Years expertise</div>
-            </div>
+          <div className={styles.hs__ctaRow}>
+            <a href="#contact" className={styles.hs__ctaPrimary}>
+              Calculate Your Extra Profit
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                className={styles.hs__ctaIcon}
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 12h13M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+            <a href="#how-it-works" className={styles.hs__ctaSecondary}>
+              See How It Works
+            </a>
           </div>
         </div>
       </div>
@@ -123,12 +126,14 @@ export default function HeroSection() {
         )}
       </button>
 
-      <div className={styles.hs__statsbar} aria-label="College highlights">
+      <div
+        className={styles.hs__statsbar}
+        aria-label="Milling performance highlights"
+      >
         {[
-          { value: "100%", label: "Career Opportunities" },
-          { value: "Expert", label: "Faculty Team" },
-          { value: "Modern", label: "Learning Environment" },
-          { value: "Career", label: "Focused Programs" },
+          { value: "30–40%", label: "Lower power costs" },
+          { value: "275+", label: "Installations worldwide" },
+          { value: "60+", label: "Years expertise" },
         ].map(({ value, label }) => (
           <div key={label} className={styles.hs__stat}>
             <span className={styles.hs__sv}>{value}</span>

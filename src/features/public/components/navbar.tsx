@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronDown, Phone, Mail, Info } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -138,7 +138,44 @@ function DesktopDropdown({ item }: { item: MenuItem }) {
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState<string | null>(null);
+  const [navHidden, setNavHidden] = useState(false);
   const pathname = usePathname();
+
+  const lastScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
+
+  useEffect(() => {
+    lastScrollYRef.current = window.scrollY;
+
+    const handleScroll = () => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const lastScrollY = lastScrollYRef.current;
+        const scrolledDown = currentScrollY > lastScrollY;
+        const pastThreshold = currentScrollY > 80;
+
+        // Never hide the navbar while the mobile drawer is open, or before
+        // the user has scrolled past a small threshold near the top —
+        // this avoids a jittery hide/show on tiny scroll wobbles.
+        if (mobileOpen || currentScrollY <= 80) {
+          setNavHidden(false);
+        } else if (scrolledDown && pastThreshold) {
+          setNavHidden(true);
+        } else if (!scrolledDown) {
+          setNavHidden(false);
+        }
+
+        lastScrollYRef.current = currentScrollY;
+        tickingRef.current = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mobileOpen]);
 
   const scrollLockRef = useRef(false);
 
@@ -192,64 +229,11 @@ export function Navbar() {
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.topbar}>
-          <div className={styles.topbarLeft}>
-            <a href="tel:18001230000" className={styles.topbarContactLink}>
-              <Phone
-                size={13}
-                strokeWidth={2.2}
-                className={styles.topbarContactIcon}
-              />
-              <span>1800-123-0000</span>
-            </a>
-            <span className={styles.topbarDivider} />
-            <a
-              href="mailto:promiller@support.in"
-              className={styles.topbarContactLink}
-            >
-              <Mail
-                size={13}
-                strokeWidth={2.2}
-                className={styles.topbarContactIcon}
-              />
-              <span>promiller@support.in</span>
-            </a>
-            <span className={styles.topbarDivider} />
-            <a href="tel:18001231104" className={styles.admissionBadge}>
-              <Info size={11} strokeWidth={2.5} />
-              Business Inquiries
-            </a>
-          </div>
-
-          <div className={styles.topbarRight}>
-            {socials.map((s, i) => (
-              <a
-                key={i}
-                href={s.link}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.socialIcon}
-                aria-label={`Social link ${i + 1}`}
-              >
-                <s.icon size={13} />
-              </a>
-            ))}
-          </div>
-        </div>
-
+      <header
+        className={`${styles.header} ${navHidden ? styles.headerHidden : ""}`}
+      >
         <nav className={styles.mainNav}>
           <div className={styles.navInner}>
-            {/* <Link href="/" className={styles.logoLink}>
-              <Image
-                src="/mdssc-logo.svg"
-                alt="MySBA"
-                width={120}
-                height={44}
-                className={styles.logoImg}
-                priority
-              />
-            </Link> */}
             <Link href="/" className={styles.logoLink}>
               <div className={styles.logoBox}>
                 <Image
@@ -263,33 +247,35 @@ export function Navbar() {
               </div>
             </Link>
 
-            <ul className={styles.desktopMenu}>
-              {menuItems.map((item) =>
-                item.dropdown ? (
-                  <DesktopDropdown key={item.name} item={item} />
-                ) : item.external ? (
-                  <li key={item.name} style={{ listStyle: "none" }}>
-                    <a
-                      href={item.path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.navLinkUnderline}
-                    >
-                      {item.name}
-                    </a>
-                  </li>
-                ) : (
-                  <li key={item.name} style={{ listStyle: "none" }}>
-                    <Link
-                      href={item.path ?? "/"}
-                      className={styles.navLinkUnderline}
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ),
-              )}
-            </ul>
+            <div className={styles.navMenuBox}>
+              <ul className={styles.desktopMenu}>
+                {menuItems.map((item) =>
+                  item.dropdown ? (
+                    <DesktopDropdown key={item.name} item={item} />
+                  ) : item.external ? (
+                    <li key={item.name} style={{ listStyle: "none" }}>
+                      <a
+                        href={item.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.navLinkUnderline}
+                      >
+                        {item.name}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={item.name} style={{ listStyle: "none" }}>
+                      <Link
+                        href={item.path ?? "/"}
+                        className={styles.navLinkUnderline}
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ),
+                )}
+              </ul>
+            </div>
 
             <div className={styles.navAuthBtns}>
               <Link href="/login" className={styles.btnLogin}>
@@ -310,8 +296,6 @@ export function Navbar() {
               <Menu size={28} color="#0951a5" />
             </button>
           </div>
-
-          <div className={styles.mainNavAccent} />
         </nav>
       </header>
 

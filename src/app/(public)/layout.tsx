@@ -15,7 +15,7 @@
 //   );
 // }
 
-import { Navbar } from "@/features/public/components/navbar";
+import { Navbar } from "@/features/public/components/Navbar";
 
 import { Footer } from "@/features/public/components/Footer";
 

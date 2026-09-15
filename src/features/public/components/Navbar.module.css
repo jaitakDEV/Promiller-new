@@ -1,100 +1,23 @@
 .header {
   position: fixed;
-  top: 30px;
+  top: 0px;
   left: 0;
   width: 100%;
   z-index: 999;
   font-family: var(--font-heading), sans-serif;
+  transform: translateY(0);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-.topbar {
-  display: none;
-  background: linear-gradient(135deg, #ff8c00 0%, #5b47d9 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 16px rgba(91, 71, 217, 0.35);
-  padding: 5px 40px;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-
-.topbarLeft {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.topbarRight {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.topbarContactLink {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: rgba(255, 255, 255, 0.92);
-  text-decoration: none;
-  font-size: 12.5px;
-  font-weight: 400;
-  transition: color 0.2s;
-  white-space: nowrap;
-}
-.topbarContactLink:hover {
-  color: #ffffff;
-}
-
-.topbarContactIcon {
-  color: #ffe0b3;
-  flex-shrink: 0;
-}
-
-.topbarDivider {
-  width: 1px;
-  height: 14px;
-  background: rgba(255, 255, 255, 0.25);
-  flex-shrink: 0;
-}
-
-.admissionBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 20px;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: background 0.2s;
-}
-.admissionBadge:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.socialIcon {
-  color: rgba(255, 255, 255, 0.85);
-  display: flex;
-  align-items: center;
-  transition:
-    transform 0.2s,
-    opacity 0.2s;
-}
-.socialIcon:hover {
-  transform: scale(1.2);
-  opacity: 0.85;
+.headerHidden {
+  transform: translateY(-100%);
 }
 
 .mainNav {
-  background: #ffffff;
-  border-bottom: 1px solid rgba(91, 71, 217, 0.1);
-  box-shadow: 0 4px 24px rgba(91, 71, 217, 0.08);
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .navInner {
@@ -129,47 +52,42 @@
   display: block;
 }
 
-.desktopMenu {
+.navMenuBox {
   display: none;
+}
+
+.desktopMenu {
+  display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 4px;
   margin: 0;
-  padding: 0;
+  padding: 6px 8px;
   list-style: none;
-  justify-content: flex-end;
-  flex: 1;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .navLinkUnderline {
   position: relative;
   text-decoration: none;
-  color: #2b2540;
+  color: #ffffff;
   font-size: 13.5px;
   font-weight: 600;
   white-space: nowrap;
-  padding: 6px 2px;
+  padding: 8px 14px;
+  border-radius: 999px;
   letter-spacing: 0.01em;
-}
-.navLinkUnderline::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #ff8c00, #5b47d9);
-  border-radius: 2px;
-  transition: width 0.25s ease;
+  transition: background 0.2s;
 }
 .navLinkUnderline:hover {
-  color: #5b47d9;
-}
-.navLinkUnderline:hover::after {
-  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .dropdownTrigger {
-  color: #2b2540;
+  color: #ffffff;
   background: none;
   border: none;
   cursor: pointer;
@@ -178,19 +96,21 @@
   display: flex;
   align-items: center;
   gap: 3px;
-  padding: 6px 2px;
+  padding: 8px 14px;
+  border-radius: 999px;
   white-space: nowrap;
   letter-spacing: 0.01em;
   font-family: inherit;
+  transition: background 0.2s;
 }
 
 .dropdownTrigger:hover {
-  color: #5b47d9;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .chevron {
   transition: transform 0.2s;
-  color: #5b47d9;
+  color: #ffffff;
 }
 .chevronOpen {
   transform: rotate(180deg);
@@ -245,8 +165,8 @@
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  border: 1.5px solid #5b47d9;
-  color: #5b47d9;
+  border: 1.5px solid #ffffff;
+  color: #ffffff;
   background: transparent;
   transition:
     background 0.2s,
@@ -256,7 +176,8 @@
   font-family: inherit;
 }
 .btnLogin:hover {
-  background: #f2f0fc;
+  background: #ffffff;
+  color: #5b47d9;
 }
 
 .btnGetStarted {
@@ -294,22 +215,6 @@
   cursor: pointer;
   padding: 6px;
   border-radius: 8px;
-}
-
-.mainNavAccent {
-  height: 3px;
-  background: linear-gradient(90deg, #ff8c00 0%, #5b47d9 50%, #ff8c00 100%);
-  background-size: 200% 100%;
-  animation: shimmer 4s ease infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
 }
 
 .mobileOverlay {
@@ -507,11 +412,10 @@
 }
 
 @media (min-width: 1024px) {
-  .topbar {
+  .navMenuBox {
     display: flex !important;
-  }
-  .desktopMenu {
-    display: flex !important;
+    flex: 1;
+    justify-content: center;
   }
   .navAuthBtns {
     display: flex !important;
