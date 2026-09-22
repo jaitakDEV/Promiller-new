@@ -35,7 +35,7 @@ export default function HeroSection() {
         playsInline
         preload="auto"
         aria-hidden="true"
-        poster="/images/hero-poster.jpg"
+        // poster="/images/hero-poster.jpg"
       >
         <source src="/videos/hero-bg.mp4" type="video/mp4" />
       </video>
@@ -131,7 +131,7 @@ export default function HeroSection() {
         aria-label="Milling performance highlights"
       >
         {[
-          { value: "30–40%", label: "Lower power costs" },
+          { value: "30 - 40%", label: "Lower power costs" },
           { value: "275+", label: "Installations worldwide" },
           { value: "60+", label: "Years expertise" },
         ].map(({ value, label }) => (

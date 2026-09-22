@@ -1,0 +1,414 @@
+/* ---------- Layout ---------- */
+.section {
+  width: 100%;
+  padding: 3.5rem 1rem;
+  color: #171717;
+  font-family: inherit;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .section {
+    padding: 5rem 2rem;
+  }
+  .container {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .section {
+    padding: 6rem 3rem;
+  }
+}
+
+/* ---------- Left column ---------- */
+.left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.iconTile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(180deg, #f6f6f6 0%, #dedede 100%);
+  border: 1px solid #d6d6d6;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -2px 3px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.title {
+  margin: 1.4rem 0 0;
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #171717;
+}
+
+.description {
+  max-width: 22rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #4a4a4a;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  color: #525252;
+}
+
+.details a {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: color 0.15s ease;
+}
+
+.details a:hover {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.details a:focus-visible {
+  outline: 2px solid #737373;
+  outline-offset: 2px;
+}
+
+@media (min-width: 520px) {
+  .details {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0;
+  }
+  .details li:not(:last-child)::after {
+    content: "•";
+    display: inline-block;
+    margin: 0 0.85rem;
+    color: #525252;
+  }
+}
+
+/* ---------- Map (tilted in 3D) ---------- */
+.mapStage {
+  width: 100%;
+  max-width: 26rem;
+  margin-top: 2.5rem;
+  margin-bottom: -1.25rem; /* tilt shrinks the visual height, this trims the leftover gap */
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateX(45deg);
+  transform-origin: 50% 50%;
+}
+
+.mapSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.land {
+  fill: #e4e4e7;
+  stroke: #f7f7f8;
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+}
+
+/* Pin: anchor sits exactly on the map point, the beam stands upright. */
+.pin {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.pinBase {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(59, 130, 246, 0.55),
+    rgba(59, 130, 246, 0.2) 60%,
+    rgba(59, 130, 246, 0) 100%
+  );
+}
+
+.pinPulse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.6);
+  transform: translate(-50%, -50%) scale(0.5);
+  opacity: 0;
+  animation: pulse 2.4s ease-out infinite;
+}
+
+.pinBeam {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%) rotateX(-45deg);
+  transform-origin: 50% 100%;
+}
+
+.pinLabel {
+  padding: 0.15rem 0.55rem;
+  border-radius: 0.3rem;
+  background: #e2e2e5;
+  color: #525252;
+  font-size: 0.625rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.pinLine {
+  width: 2px;
+  height: 3.25rem;
+  background: linear-gradient(to bottom, rgba(59, 130, 246, 0), #3b82f6);
+  border-radius: 1px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.7);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinPulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ---------- Form card ---------- */
+.card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(160deg, #f4f4f6 0%, #e5e6e9 100%);
+}
+
+@media (min-width: 640px) {
+  .card {
+    padding: 1.875rem;
+    border-radius: 1.5rem;
+  }
+}
+
+.decor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 13rem;
+  height: 6rem;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 0.8125rem 0.8125rem;
+  -webkit-mask-image: linear-gradient(to bottom left, #000 15%, transparent 85%);
+  mask-image: linear-gradient(to bottom left, #000 15%, transparent 85%);
+}
+
+.decorBlock {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.decorBlockA {
+  top: 0.75rem;
+  right: 8.25rem;
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.decorBlockB {
+  top: 0.75rem;
+  right: 6.35rem;
+  width: 0.9rem;
+  height: 1.85rem;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #404040;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e7;
+  border-radius: 0.375rem;
+  background: #ffffff;
+  color: #171717;
+  font: inherit;
+  font-size: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.input {
+  height: 2rem;
+  padding: 0 0.8rem;
+}
+
+.textarea {
+  min-height: 5.625rem;
+  padding: 0.7rem 0.8rem;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #71717a;
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: #a1a1aa;
+  box-shadow: 0 0 0 3px rgba(23, 23, 23, 0.12);
+}
+
+/* 16px on phones so iOS Safari does not zoom in on focus */
+@media (max-width: 640px) {
+  .input,
+  .textarea {
+    font-size: 1rem;
+  }
+  .input {
+    height: 2.5rem;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.button {
+  height: 1.875rem;
+  padding: 0 0.85rem;
+  border: 0;
+  border-radius: 0.3rem;
+  background: #262626;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.button:hover:not(:disabled) {
+  background: #000000;
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.button:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .button {
+    width: 100%;
+    height: 2.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+.status {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.statusSuccess {
+  color: #15803d;
+}
+
+.statusError {
+  color: #b91c1c;
+}

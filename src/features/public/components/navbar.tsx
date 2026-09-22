@@ -278,10 +278,11 @@ export function Navbar() {
             </div>
 
             <div className={styles.navAuthBtns}>
-              <Link href="/login" className={styles.btnLogin}>
+              <Link href="" className={styles.btnLogin}>
+                {" "}
                 Login
               </Link>
-              <Link href="/register" className={styles.btnGetStarted}>
+              <Link href="" className={styles.btnGetStarted}>
                 Get Started
               </Link>
             </div>
