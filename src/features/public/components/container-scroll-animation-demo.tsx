@@ -10,7 +10,13 @@ export default function HeroScrollDemo() {
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
               Unleash the power of <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+              <span
+                className="text-4xl md:text-[6rem] font-bold mt-1 leading-none bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to left, #6dd5fa, #59bfea, #47aadb, #3795ca, #2980b9)",
+                }}
+              >
                 Scroll Animations
               </span>
             </h1>

@@ -1,0 +1,17 @@
+.grad1 {
+  background: #111827;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.grad2 {
+  background: linear-gradient(to left, #6dd5fa, #59bfea, #47aadb, #3795ca, #2980b9);
+  font-size: 3rem;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}

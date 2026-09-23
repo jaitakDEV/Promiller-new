@@ -219,25 +219,28 @@ export function AboutPromillerSection() {
                   className={styles.sproutBadge}
                 >
                   <svg
+                    xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    fill="currentColor"
+                    fill="none"
                     style={{
                       width: "2.75rem",
                       height: "2.75rem",
-                      color: "#ffffff",
                     }}
                   >
+                    <path d="M0 0h24v24H0z" fill="none" />
+
                     <path
-                      d="M12 2C12 2 13 6 15 8C17 10 21 11 21 11C21 11 17 12 15 14C13 16 12 20 12 20C12 20 11 16 9 14C7 12 3 11 3 11C3 11 7 10 9 8C11 6 12 2 12 2Z"
-                      opacity="0.25"
-                    />
-                    <path
-                      d="M12 3v17M12 8c2.5-3 6.5-2 6.5-2s.5 4-2.5 6c-2 1.3-4 1-4 1M12 14c-2.5 3-6.5 2-6.5 2s-.5-4 2.5-6c2-1.3 4-1 4-1"
-                      stroke="#ffffff"
-                      strokeWidth="2.2"
+                      fill="none"
+                      stroke="#fff"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      fill="none"
+                      strokeWidth="1.5"
+                      d="M14.35 9.65L3 21
+      M19.67 8.586c-2.128 2.128-5.32 1.064-5.32 1.064s-1.064-3.192 1.064-5.32c1.389-1.389 3.231-1.418 4.343-1.27a1.36 1.36 0 0 1 1.184 1.183c.147 1.112.118 2.954-1.271 4.343
+      m-3.902 7.094c-2.837 0-4.256-2.837-4.256-2.837s1.419-2.837 4.256-2.837c1.82 0 3.056 1.166 3.709 2.003a1.34 1.34 0 0 1 0 1.668c-.653.837-1.89 2.003-3.709 2.003
+      M8.32 8.232c0 2.838 2.838 4.256 2.838 4.256s2.837-1.418 2.837-4.256c0-1.819-1.166-3.055-2.004-3.708a1.34 1.34 0 0 0-1.667 0c-.837.653-2.004 1.89-2.004 3.708
+      m2.838 12.058c-2.838 0-4.257-2.837-4.257-2.837s1.42-2.837 4.257-2.837c1.819 0 3.055 1.166 3.708 2.003a1.34 1.34 0 0 1 0 1.668c-.653.837-1.89 2.003-3.708 2.003
+      m-7.449-7.447c0 2.837 2.838 4.255 2.838 4.255s2.837-1.418 2.837-4.255c0-1.82-1.166-3.056-2.004-3.709a1.34 1.34 0 0 0-1.667 0c-.837.653-2.004 1.89-2.004 3.708"
                     />
                   </svg>
                 </motion.div>
@@ -297,13 +300,6 @@ export function AboutPromillerSection() {
                 </span>
                 , known for transforming traditional flour mills into highly
                 efficient, technology-driven operations.
-              </p>
-              <p className={styles.narrativeSub}>
-                Combining advanced engineering, automation and intelligent mill
-                management, ProMiller provides end-to-end solutions, from
-                consultation and design to installation and support, helping
-                mills achieve higher productivity, lower operating costs and
-                sustainable long-term growth.
               </p>
             </motion.div>
 
