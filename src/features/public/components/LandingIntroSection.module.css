@@ -1,0 +1,16 @@
+.grad1 {
+  color: #1a1a1a; /* --ink-heading, jaisa Differences/About mein hai */
+  font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.25rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.grad2 {
+  background: linear-gradient(90deg, #1f6fa5 0%, #2980b9 45%, #22a5dd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: inherit;
+  font-weight: 600;
+}

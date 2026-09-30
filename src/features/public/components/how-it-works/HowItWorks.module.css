@@ -1,0 +1,579 @@
+.section {
+  --blue: #2980b9;
+  --blue-dark: #1f6fa5;
+  --sky: #6dd5fa;
+  --ink: #102f56;
+  --navy: #0b2239;
+  --body: #4f6a87;
+  --line: #dbe9f4;
+  --gradient: linear-gradient(90deg, #1f6fa5 0%, #2980b9 45%, #22a5dd 100%);
+  --card-gap: 20px;
+  --ease: cubic-bezier(0.65, 0, 0.35, 1);
+
+  background: #ffffff;
+  color: var(--ink);
+  padding-block: clamp(48px, 8vw, 96px) clamp(40px, 6vw, 64px);
+  overflow-x: clip;
+}
+
+.section *,
+.section *::before,
+.section *::after {
+  box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  width: min(1180px, 100% - clamp(32px, 8vw, 64px));
+  margin: 0 auto clamp(28px, 5vw, 48px);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid rgba(41, 128, 185, 0.25);
+  border-radius: 9999px;
+  background: rgba(41, 128, 185, 0.1);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.headingAccent {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heading {
+  max-width: 20ch;
+  margin: 0;
+  font-size: clamp(30px, 4.6vw, 52px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: 64ch;
+  margin: 18px 0 0;
+  font-size: clamp(15px, 1.6vw, 17px);
+  line-height: 1.7;
+  color: var(--body);
+}
+
+/* ---------- Slider ---------- */
+
+/* Soft brand-gradient band sitting behind the cards */
+.stage {
+  position: relative;
+}
+
+.window {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-block: 8px 20px;
+  touch-action: pan-y;
+}
+
+.track {
+  position: relative; /* offsetParent for centring maths */
+  display: flex;
+  align-items: stretch;
+  gap: var(--card-gap);
+  width: max-content;
+  opacity: 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Duration is set from JS (longer for long jumps); easing is shared */
+.track[data-ready="true"] {
+  opacity: 1;
+  transition-property: transform;
+  transition-duration: 480ms;
+  transition-timing-function: var(--ease);
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: min(900px, 72vw);
+  min-height: 540px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--navy);
+  box-shadow: 0 16px 36px -18px rgba(15, 42, 67, 0.45);
+  color: #ffffff;
+  opacity: 0.45;
+  cursor: pointer;
+  backface-visibility: hidden;
+  transition: opacity 0.7s ease;
+}
+
+.card[data-active="true"] {
+  opacity: 1;
+  cursor: default;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 24, 42, 0.28) 0%,
+    rgba(8, 24, 42, 0.35) 25%,
+    rgba(8, 24, 42, 0.76) 60%,
+    rgba(6, 18, 33, 0.96) 100%
+  );
+}
+
+/* Thin brand line at the bottom edge of the active card */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 4;
+  height: 3px;
+  background: linear-gradient(to right, var(--blue), var(--sky));
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.card[data-active="true"]::after {
+  opacity: 1;
+}
+
+.stepCount {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  margin: 0;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(8, 24, 42, 0.62);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stepCount span {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: auto;
+  padding: 88px clamp(22px, 5vw, 44px) clamp(26px, 4vw, 42px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid rgba(109, 213, 250, 0.4);
+  border-radius: 6px;
+  background: rgba(109, 213, 250, 0.14);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d8f3fd;
+}
+
+.badge i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sky);
+}
+
+.title {
+  max-width: 22ch;
+  margin: 0;
+  font-size: clamp(26px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.description {
+  max-width: 62ch;
+  margin: 0;
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* ---------- ₹0 highlight ---------- */
+
+.highlight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.highlightValue {
+  font-size: clamp(34px, 5vw, 46px);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--sky);
+}
+
+.highlightCaption {
+  padding-left: 16px;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- Before → after row ---------- */
+
+.flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  max-width: 720px;
+  margin-top: 4px;
+}
+
+.flowBox {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* The "after" box gets a sky accent edge */
+.flowBox:last-of-type {
+  border-left: 3px solid var(--sky);
+  background: rgba(109, 213, 250, 0.1);
+}
+
+.flowLabel {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.flowValue {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.flowArrow {
+  display: grid;
+  align-self: center;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--sky));
+  color: #ffffff;
+}
+
+.flowArrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(1180px, 100% - clamp(32px, 8vw, 64px));
+  margin: 8px auto 0;
+}
+
+.controlsSpacer {
+  display: block;
+}
+
+.playPause {
+  justify-self: end;
+}
+
+.arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.arrow:hover {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+}
+
+.arrow:focus-visible,
+.dot:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 24px tap target around a small visual dot */
+.dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #c6dcee;
+  transition:
+    width 0.35s ease,
+    background 0.35s ease;
+}
+
+.dot[data-active="true"] {
+  width: 48px;
+}
+
+.dot[data-active="true"]::before {
+  width: 40px;
+}
+
+/* Progress fill: when it finishes, the slider moves to the next step */
+.dot[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 40px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--blue), var(--sky));
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: progress var(--autoplay-ms) linear forwards;
+}
+
+.section[data-paused="true"] .dot[data-active="true"]::after {
+  animation-play-state: paused;
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .track[data-ready="true"],
+  .card,
+  .card::after,
+  .dot::before,
+  .arrow {
+    transition: none;
+  }
+
+  .dot[data-active="true"]::after {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Tablet */
+@media (max-width: 899px) {
+  .card {
+    width: 84vw;
+    min-height: 520px;
+  }
+
+  .stepCount {
+    top: 18px;
+    right: 18px;
+  }
+
+  .content {
+    padding-top: 80px;
+  }
+}
+
+/* Phones */
+@media (max-width: 639px) {
+  .section {
+    --card-gap: 12px;
+  }
+
+  .card {
+    width: 88vw;
+    min-height: 540px;
+    border-radius: 14px;
+  }
+
+  .content {
+    gap: 12px;
+  }
+
+  /* Arrows left, dots centre, pause right — one row */
+  .controls {
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+  }
+
+  .arrows {
+    gap: 8px;
+  }
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dots {
+    justify-self: center;
+  }
+
+  .controlsSpacer {
+    display: none;
+  }
+}
+
+/* Small phones: stack the before / after boxes */
+@media (max-width: 479px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .flowArrow {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .flowBox {
+    padding: 11px 14px;
+  }
+}
+
+/* =========================================================
+   PRODUCT CUT-OUT VARIANT  (step.image.fit = "contain")
+   Light stage on top for the transparent PNG, navy text panel below.
+========================================================= */
+
+.card[data-fit="contain"] {
+  background: radial-gradient(
+    ellipse at 50% 34%,
+    #ffffff 0%,
+    #e6f5fd 48%,
+    #c4e8f8 100%
+  );
+}
+
+.figure {
+  position: relative;
+  z-index: 2;
+  flex: 1 1 auto;
+  min-height: clamp(140px, 20vw, 210px);
+  margin: 60px clamp(20px, 5vw, 44px) 8px;
+}
+
+.imageContain {
+  object-fit: contain;
+}
+
+.card[data-fit="contain"] .stepCount {
+  border-color: rgba(15, 42, 67, 0.2);
+  background: rgba(15, 42, 67, 0.82);
+}
+
+.card[data-fit="contain"] .content {
+  margin-top: 0;
+  padding-top: 28px;
+  background: linear-gradient(180deg, #0f2a43, #0a1c30);
+}
+
+@media (max-width: 639px) {
+  .figure {
+    margin-top: 54px;
+  }
+}

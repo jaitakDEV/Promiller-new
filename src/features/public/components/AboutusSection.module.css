@@ -471,6 +471,14 @@
   }
 }
 
+.headlineAccent {
+  color: var(--brand);
+  background: linear-gradient(90deg, #1f6fa5 0%, #2980b9 45%, #22a5dd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .narrative {
   display: flex;
   flex-direction: column;

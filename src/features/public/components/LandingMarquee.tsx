@@ -25,7 +25,7 @@ type SingleRowLogoCloudProps = {
 /** Number of logos visible in the row at any time. */
 const SLOTS = 5;
 
-export function SingleRowLogoCloud({
+export function LandingMarquee({
   logos,
   heading = "Trusted by the best",
   interval = 2000,
@@ -120,4 +120,4 @@ export function SingleRowLogoCloud({
   );
 }
 
-export default SingleRowLogoCloud;
+export default LandingMarquee;

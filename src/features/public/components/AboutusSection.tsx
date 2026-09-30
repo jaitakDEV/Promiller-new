@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import styles from "./AboutPromillerSection.module.css";
+import styles from "./AboutusSection.module.css";
 import { Caveat } from "next/font/google";
+import Image from "next/image";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -122,7 +123,7 @@ function renderTitleLines(title: string) {
   return parts.map((line, i) => <span key={i}>{line}</span>);
 }
 
-export function AboutPromillerSection() {
+export function AboutusSection() {
   return (
     <section id="about-promiller-section" className={styles.section}>
       <svg
@@ -162,10 +163,12 @@ export function AboutPromillerSection() {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={styles.mainImage}
               >
-                <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=85"
-                  alt="Modern flour milling facility with engineer and automated roller mills"
-                  referrerPolicy="no-referrer"
+                <Image
+                  src="/images/sectionImages/Home-page1.png"
+                  alt="Freshly milled flour"
+                  width={1200}
+                  height={800}
+                  priority
                 />
                 <div className={styles.mainImageOverlay} />
                 <div className={styles.mainImageBadge}>
@@ -251,10 +254,12 @@ export function AboutPromillerSection() {
                   transition={{ duration: 0.7, delay: 0.4 }}
                   className={styles.flourCard}
                 >
-                  <img
-                    src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=85"
-                    alt="Two hands gently cupping freshly milled organic white flour"
-                    referrerPolicy="no-referrer"
+                  <Image
+                    src="/images/sectionImages/Home-page3.jpg"
+                    alt="Freshly milled flour"
+                    width={1200}
+                    height={800}
+                    priority
                   />
                 </motion.div>
               </div>
@@ -268,12 +273,7 @@ export function AboutPromillerSection() {
               transition={{ duration: 0.5 }}
               className={styles.eyebrowRow}
             >
-              <div className={styles.eyebrow}>
-                <span>—</span>
-                <span>ABOUT US</span>
-              </div>
-              <span className={styles.divider}>|</span>
-              <span className={styles.tagPill}>R.S. Choyal Group</span>
+              <span className={styles.tagPill}>About Us</span>
             </motion.div>
 
             <motion.div
@@ -282,7 +282,8 @@ export function AboutPromillerSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <h1 className={styles.headline}>
-                More Than Just Machines, We Build Milling Success
+                More Than Just Machines, We Build{" "}
+                <span className={styles.headlineAccent}>Milling Success</span>
               </h1>
             </motion.div>
 

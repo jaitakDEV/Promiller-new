@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { CloudShader } from "@/components/ui/cloud-shader";
 
-export default function CloudShaderHeroDemo() {
+export default function HeroSection() {
   return (
     <div className="relative min-h-[50rem] w-full overflow-hidden">
       <CloudShader className="absolute inset-0" />
@@ -55,9 +55,9 @@ export default function CloudShaderHeroDemo() {
           Milling above <br className="hidden md:block" /> the clouds
         </h1>
         <p className="mt-6 max-w-2xl text-base text-white/90 drop-shadow-sm md:text-lg">
-          Altitude gives your finance team one home for cards, payments, and
-          forecasting. Close the books in hours, not weeks, with automation that
-          works while you sleep.
+          Transform your flour mill with one powerful software platform built to
+          simplify operations, monitor performance, and help you make better
+          decisions.
         </p>
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
           <a
@@ -73,9 +73,6 @@ export default function CloudShaderHeroDemo() {
             Book a demo
           </a>
         </div>
-        <p className="mt-4 text-xs text-white/70">
-          No credit card required &middot; Free 14-day trial
-        </p>
       </div>
 
       {/* dashboard image */}

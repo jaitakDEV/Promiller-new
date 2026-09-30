@@ -1,0 +1,515 @@
+/* =========================================================
+   WhenAndWhom.module.css
+   Mobile-first. Breakpoints: 768px (floating dashboard cards),
+   1100px (two-column, full-screen layout)
+========================================================= */
+
+/* ---------- Section + tokens ---------- */
+
+.section {
+  --brand: #2980b9;
+  --brand-mid: #6dd5fa;
+  --brand-ink: #1f6fa5;
+  --ink: #0f2747;
+  --ink-body: #52667a;
+  --ink-muted: #64748b;
+  --line: rgba(15, 39, 71, 0.08);
+
+  /* Brand gradient (fades to white) and a solid version for small UI */
+  --gradient: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+  --gradient-solid: linear-gradient(135deg, #2980b9, #6dd5fa);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+/* Very soft brand glow, background stays white */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 50% at 100% 0%,
+      rgba(109, 213, 250, 0.2),
+      transparent 70%
+    ),
+    radial-gradient(
+      45% 40% at 0% 100%,
+      rgba(41, 128, 185, 0.07),
+      transparent 70%
+    );
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(40px, 5vw, 64px);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 72px) clamp(20px, 4vw, 64px);
+}
+
+/* ---------- Left ---------- */
+
+.left {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid rgba(41, 128, 185, 0.25);
+  border-radius: 9999px;
+  background: rgba(41, 128, 185, 0.1);
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: normal;
+}
+
+.title {
+  margin: 28px 0 0;
+  color: var(--ink);
+  font-size: clamp(2.25rem, 1.2rem + 3.6vw, 4rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.accentLight {
+  color: var(--brand);
+  background: linear-gradient(90deg, #1f6fa5 0%, #2980b9 45%, #22a5dd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.accentDark {
+  color: var(--brand-ink);
+}
+
+.sub {
+  max-width: 38em;
+  margin: 24px 0 0;
+  color: var(--ink-body);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.75;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.cta:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
+/* Manual line breaks only make sense on larger screens */
+.br {
+  display: none;
+}
+
+/* ---------- Visual (mobile: photo + 2-col card grid) ---------- */
+
+.visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.photoWrap {
+  position: relative;
+  grid-column: 1 / -1;
+  height: clamp(240px, 70vw, 340px);
+}
+
+.circle {
+  position: absolute;
+  bottom: 0;
+  left: 18%;
+  width: 80%;
+  height: 70%;
+  border-radius: 50%;
+  background: var(--gradient);
+  opacity: 0.18;
+}
+
+.photo {
+  object-fit: contain;
+  object-position: 47% center;
+}
+
+.connectors {
+  display: none;
+}
+
+.floatWrap {
+  position: relative;
+  min-width: 0;
+}
+
+.floatWrap:last-child {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Dashboard cards ---------- */
+
+.card {
+  height: 100%;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(15, 39, 71, 0.04),
+    0 16px 32px -16px rgba(41, 128, 185, 0.28);
+}
+
+.cardLabel {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.cardRow,
+.invRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.cardValue {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.cardRow .cardValue,
+.invRow .cardValue {
+  margin-top: 0;
+}
+
+.delta {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(41, 128, 185, 0.1);
+  color: var(--brand-ink);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.spark {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin-top: 4px;
+}
+
+.leaf {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(41, 128, 185, 0.1);
+  color: var(--brand);
+}
+
+.progress {
+  height: 6px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: #e6eef4;
+}
+
+.progressFill {
+  width: 32%;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--gradient-solid);
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-top: 6px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.statusDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.16);
+}
+
+.bars {
+  display: flex;
+  flex: 1 1 60px;
+  align-items: flex-end;
+  gap: 5px;
+  max-width: 110px;
+  height: 48px;
+}
+
+.barsEnergy {
+  max-width: none;
+  margin-top: 10px;
+}
+
+.bar {
+  flex: 1;
+  min-width: 4px;
+  max-width: 10px;
+  border-radius: 3px;
+}
+
+/* ---------- Right (original design) ---------- */
+
+.right {
+  min-width: 0;
+  padding: 0;
+  border-left: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid rgba(41, 128, 185, 0.25);
+  border-radius: 9999px;
+  background: rgba(41, 128, 185, 0.1);
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+.rightTitle {
+  margin: 20px 0 0;
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.list {
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 0;
+}
+
+.item + .item {
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.iconTile {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  background: #e8f3f8;
+  color: #2980b9;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.itemTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.itemText {
+  margin: 4px 0 0;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #7a8185;
+}
+
+/* =========================================================
+   >= 640px
+========================================================= */
+
+@media (min-width: 640px) {
+  .br {
+    display: inline;
+  }
+
+  .iconTile {
+    width: 88px;
+    height: 88px;
+  }
+
+  .item {
+    gap: 24px;
+  }
+}
+
+/* =========================================================
+   >= 768px : floating dashboard cards + parallax
+========================================================= */
+
+@media (min-width: 768px) {
+  .visual {
+    display: block;
+    height: clamp(520px, 72vw, 680px);
+    margin-top: 16px;
+  }
+
+  .photoWrap {
+    position: absolute;
+    inset: 0;
+    height: auto;
+  }
+
+  .floatWrap {
+    position: absolute;
+    z-index: 10;
+  }
+
+  .card {
+    height: auto;
+    will-change: transform;
+
+    /* Parallax: --d is travel in px, set per card in the TSX */
+    transform: translate3d(
+      calc(var(--mx, 0) * var(--d) * 1px),
+      calc(var(--my, 0) * var(--d) * 1px + var(--sy, 0) * var(--d) * 2px),
+      0
+    );
+  }
+
+  .posProduction {
+    top: 0;
+    left: 28%;
+    width: 190px;
+  }
+
+  .posInventory {
+    top: 24%;
+    left: 0;
+    width: 195px;
+  }
+
+  .posStatus {
+    bottom: 6%;
+    left: 0;
+    width: 200px;
+  }
+
+  .posEnergy {
+    top: 26%;
+    right: 3%;
+    width: 170px;
+  }
+
+  .posMoisture {
+    right: 0;
+    bottom: 8%;
+    width: 200px;
+  }
+}
+
+/* =========================================================
+   >= 1100px : two columns, fills the screen
+========================================================= */
+
+@media (min-width: 1100px) {
+  .inner {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: clamp(48px, 5vw, 88px);
+  }
+
+  .right {
+    padding: 72px 0 0 56px;
+    border-left: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .visual {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: clamp(460px, 52vh, 720px);
+  }
+
+  .connectors {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .visual {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    padding: 14px;
+  }
+}

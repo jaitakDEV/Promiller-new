@@ -1,15 +1,17 @@
-
-import { AboutPromillerSection } from "@/features/public/components/AboutPromillerSection";
-import CloudShaderHeroDemo from "@/features/public/components/cloud-shader-hero-demo";
+import { AboutusSection } from "@/features/public/components/AboutusSection";
+import HeroSection from "@/features/public/components/HeroSection";
 
 import WorldMapDemo from "@/features/public/components/world-map-demo";
-import HeroScrollDemo from "@/features/public/components/container-scroll-animation-demo";
-import SingleRowLogoCloud, {
+import LandingMarquee, {
   type Logo,
-} from "@/features/public/components/single-row-logo-cloud";
-import ContactSection from "@/features/public/components/contact-section";
-import { Differences } from "@/features/public/components/Differences";
-import ScrollableLaptop from "@/features/public/components/ScrollableLaptop";
+} from "@/features/public/components/LandingMarquee";
+import ContactSection from "@/features/public/components/ContactSection";
+import WhyPromiller from "@/features/public/components/WhyPromiller";
+import LandingIntroSection from "@/features/public/components/LandingIntroSection";
+import HowItWorks from "@/features/public/components/how-it-works/HowItWorks";
+import ProcessSteps from "@/features/public/components/process-steps/ProcessSteps";
+import WhenAndWhom from "@/features/public/components/WhenAndWhom";
+
 const logos: Logo[] = [
   // Set 1
   { name: "Client A", src: "/logos/dovly.webp" },
@@ -28,13 +30,15 @@ const logos: Logo[] = [
 export default function HomePage() {
   return (
     <div>
-      <CloudShaderHeroDemo />
-      <AboutPromillerSection />
-      <ScrollableLaptop />
-      <SingleRowLogoCloud logos={logos} heading="Trusted by the best" />{" "}
-      <Differences />
-      <HeroScrollDemo />
+      <HeroSection />
+      <AboutusSection />
+      <LandingIntroSection />
+      <WhyPromiller />
+      <WhenAndWhom />
+      <ProcessSteps />
+      <HowItWorks />
       <WorldMapDemo />
+      <LandingMarquee logos={logos} heading="Trusted by the best" />{" "}
       <ContactSection />
     </div>
   );
