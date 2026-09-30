@@ -14,7 +14,7 @@ import {
 
 import { CloudShader } from "@/components/ui/cloud-shader";
 
-import styles from "./WhyPromiller.module.css";
+import styles from "./why-promiller.module.css";
 
 type PanelVariant = "manual" | "digital";
 

@@ -1,9 +1,9 @@
 "use client";
 
-import Card from "@/components/calculator-ui/Card";
-import Field from "@/components/calculator-ui/Field";
-import Button from "@/components/calculator-ui/Button";
-import { useLang } from "@/features/calculators/atta-cost/components/LanguageProvider";
+import Card from "@/features/calculators/atta-cost/components/ui/card";
+import Field from "@/features/calculators/atta-cost/components/ui/field";
+import Button from "@/features/calculators/atta-cost/components/ui/button";
+import { useLang } from "@/features/calculators/atta-cost/components/language-provider";
 import type { CostInputs } from "@/features/calculators/atta-cost/lib/calculator";
 
 export default function Step3Byproducts({

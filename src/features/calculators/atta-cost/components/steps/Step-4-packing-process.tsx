@@ -1,6 +1,9 @@
 "use client";
 
-import { HdpeIcon, LdPouchIcon } from "@/components/calculator-ui/PackIcons";
+import {
+  HdpeIcon,
+  LdPouchIcon,
+} from "@/features/calculators/atta-cost/components/ui/pack-icons";
 
 import {
   PACK_META,
@@ -9,10 +12,10 @@ import {
   type PackSettings,
 } from "@/features/calculators/atta-cost/lib/calculator";
 
-import Card from "@/components/calculator-ui/Card";
-import Field from "@/components/calculator-ui/Field";
-import Button from "@/components/calculator-ui/Button";
-import { useLang } from "@/features/calculators/atta-cost/components/LanguageProvider";
+import Card from "@/features/calculators/atta-cost/components/ui/card";
+import Field from "@/features/calculators/atta-cost/components/ui/field";
+import Button from "@/features/calculators/atta-cost/components/ui/button";
+import { useLang } from "@/features/calculators/atta-cost/components/language-provider";
 
 export default function Step4Packing({
   inputs,

@@ -1,4 +1,4 @@
-import { LanguageProvider } from "@/features/calculators/atta-cost/components/LanguageProvider";
+import { LanguageProvider } from "@/features/calculators/atta-cost/components/language-provider";
 
 export default function AttaCostLayout({
   children,

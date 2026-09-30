@@ -1,16 +1,16 @@
-import { AboutusSection } from "@/features/public/components/AboutusSection";
-import HeroSection from "@/features/public/components/HeroSection";
+import { AboutusSection } from "@/features/public/components/about-section";
+import HeroSection from "@/features/public/components/hero-section";
 
 import WorldMapDemo from "@/features/public/components/world-map-demo";
 import LandingMarquee, {
   type Logo,
-} from "@/features/public/components/LandingMarquee";
-import ContactSection from "@/features/public/components/ContactSection";
-import WhyPromiller from "@/features/public/components/WhyPromiller";
-import LandingIntroSection from "@/features/public/components/LandingIntroSection";
-import HowItWorks from "@/features/public/components/how-it-works/HowItWorks";
-import ProcessSteps from "@/features/public/components/process-steps/ProcessSteps";
-import WhenAndWhom from "@/features/public/components/WhenAndWhom";
+} from "@/features/public/components/landing-marquee";
+import ContactSection from "@/features/public/components/contact-section";
+import WhyPromiller from "@/features/public/components/why-promiller";
+import LandingIntroSection from "@/features/public/components/landing-intro-section";
+import HowItWorks from "@/features/public/components/how-it-works/how-it-works";
+import ProcessSteps from "@/features/public/components/process-steps/process-steps";
+import WhenAndWhom from "@/features/public/components/when-and-whom";
 
 const logos: Logo[] = [
   // Set 1

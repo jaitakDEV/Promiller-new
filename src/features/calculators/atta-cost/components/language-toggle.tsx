@@ -1,6 +1,6 @@
 "use client";
 
-import { useLang } from "./LanguageProvider";
+import { useLang } from "./language-provider";
 
 export default function LanguageToggle() {
   const { lang, setLang } = useLang();

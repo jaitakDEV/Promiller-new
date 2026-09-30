@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import styles from "./AboutusSection.module.css";
+import styles from "./about-section.module.css";
 import { Caveat } from "next/font/google";
 import Image from "next/image";
 

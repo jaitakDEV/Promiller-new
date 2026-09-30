@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useLang } from "./LanguageProvider";
-import type { DictKey } from "@/lib/i18n";
+import { useLang } from "./language-provider";
+import type { DictKey } from "@/features/calculators/atta-cost/lib/i18n";
 
 const STEP_KEYS: DictKey[] = ["step1", "step2", "step3", "step4", "step5"];
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./calculators.module.css";
+import styles from "./calculators-list.module.css";
 
 const HERO_IMAGE = "/images/sectionImages/Calculatorhero.png";
 

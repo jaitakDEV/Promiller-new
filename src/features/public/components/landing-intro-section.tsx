@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import styles from "./LandingIntroSection.module.css";
+import styles from "./landing-intro-section.module.css";
 
 type Stage = "start" | "active" | "end";
 

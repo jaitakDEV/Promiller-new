@@ -1,13 +1,13 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import styles from "./ContactSection.module.css";
+import styles from "./contact-section.module.css";
 import {
   WORLD_MAP_HEIGHT,
   WORLD_MAP_PATH,
   WORLD_MAP_WIDTH,
   projectToMap,
-} from "./worldMapPath";
+} from "./world-map-path";
 
 export type ContactFormData = {
   name: string;

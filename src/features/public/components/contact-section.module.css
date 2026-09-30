@@ -254,7 +254,11 @@
     linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
   background-size: 0.8125rem 0.8125rem;
-  -webkit-mask-image: linear-gradient(to bottom left, #000 15%, transparent 85%);
+  -webkit-mask-image: linear-gradient(
+    to bottom left,
+    #000 15%,
+    transparent 85%
+  );
   mask-image: linear-gradient(to bottom left, #000 15%, transparent 85%);
 }
 

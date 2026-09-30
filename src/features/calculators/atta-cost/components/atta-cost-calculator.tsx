@@ -4,15 +4,15 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Stepper from "@/features/calculators/atta-cost/components/Stepper";
-import LanguageToggle from "@/features/calculators/atta-cost/components/LanguageToggle";
-import { useLang } from "@/features/calculators/atta-cost/components/LanguageProvider";
-import Step1WheatProcess from "@/features/calculators/atta-cost/components/steps/Step1WheatProcess";
-import Step2Yield from "@/features/calculators/atta-cost/components/steps/Step2Yield";
-import Step3Byproducts from "@/features/calculators/atta-cost/components/steps/Step3Byproducts";
-import Step4Packing from "@/features/calculators/atta-cost/components/steps/Step4Packing";
+import LanguageToggle from "@/features/calculators/atta-cost/components/language-toggle";
+import { useLang } from "@/features/calculators/atta-cost/components/language-provider";
+import Step1WheatProcess from "@/features/calculators/atta-cost/components/steps/step-1-wheat-process";
+import Step2Yield from "@/features/calculators/atta-cost/components/steps/Step-2-Yield-process";
+import Step3Byproducts from "@/features/calculators/atta-cost/components/steps/Step-3-byproducts-process";
+import Step4Packing from "@/features/calculators/atta-cost/components/steps/Step-4-packing-process";
 import Step5Results, {
   type PackRow,
-} from "@/features/calculators/atta-cost/components/steps/Step5Results";
+} from "@/features/calculators/atta-cost/components/steps/Step-5-results-process";
 import {
   computeCosting,
   computePackPrice,

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Card from "@/components/calculator-ui/Card";
-import Button from "@/components/calculator-ui/Button";
-import { useLang } from "../LanguageProvider";
-import { generateCostingPdf } from "@/features/calculators/atta-cost/lib/pdfReport";
+import Card from "@/features/calculators/atta-cost/components/ui/card";
+import Button from "@/features/calculators/atta-cost/components/ui/button";
+import { useLang } from "../language-provider";
+import { generateCostingPdf } from "@/features/calculators/atta-cost/lib/pdf-report";
 import {
   fmtINR,
   fmtNum,
