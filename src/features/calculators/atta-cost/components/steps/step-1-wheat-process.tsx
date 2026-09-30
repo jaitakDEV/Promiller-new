@@ -1,8 +1,8 @@
 "use client";
 
-import Card from "@/features/calculators/atta-cost/components/ui/Card";
+import Card from "@/features/calculators/atta-cost/components/ui/card";
 import Field from "@/features/calculators/atta-cost/components/ui/field";
-import Button from "@/features/calculators/atta-cost/components/ui/Button";
+import Button from "@/features/calculators/atta-cost/components/ui/button";
 import { useLang } from "@/features/calculators/atta-cost/components/language-provider";
 import type { CostInputs } from "@/features/calculators/atta-cost/lib/calculator";
 
