@@ -3,8 +3,8 @@ import { env } from "@/env";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
-const APP_NAME = "MDSU-Charge";
-const FROM = env.FROM_EMAIL;
+const APP_NAME = "Promiller";
+const FROM = `Promiller <${env.FROM_EMAIL}>`;
 
 export async function sendVerificationEmail(email: string, token: string) {
   const verifyUrl = `${env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;

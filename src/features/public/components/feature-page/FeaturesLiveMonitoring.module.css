@@ -1,0 +1,457 @@
+.page {
+  min-height: 100vh;
+  background: #fafafa;
+  color: #171717;
+  overflow: hidden;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  padding: 72px 6vw 90px;
+}
+
+.heroContent {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.copy {
+  max-width: 570px;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: clamp(52px, 5vw, 78px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+.copy h1 span {
+  color: #777;
+}
+
+.lead {
+  margin: 42px 0 18px;
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  max-width: 500px;
+  margin: 0 0 16px;
+  color: #777;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+/* Statement */
+
+.statement {
+  margin-top: 38px;
+  padding: 24px 26px;
+  border-radius: 24px;
+  background: #fff7dc;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 500px;
+}
+
+.statementIcon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #6DD5FA;
+  font-size: 20px;
+}
+
+.statement strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.statement span {
+  display: block;
+  margin-top: 6px;
+  color: #777;
+  font-size: 14px;
+}
+
+/* =========================
+   ANALYTICS
+========================= */
+
+.analytics {
+  min-height: 490px;
+  padding: 32px;
+  border: 1px solid #e8e8e8;
+  border-radius: 34px;
+  background: #fff;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.06);
+}
+
+.analyticsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #4a9d6c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #54bf7b;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: 1fr 190px;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.production,
+.rpm {
+  border-radius: 18px;
+  background: #f7f7f7;
+  min-height: 110px;
+  padding: 20px;
+}
+
+.production {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.metricIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #2980B9;
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
+
+.production small,
+.rpm small {
+  display: block;
+  color: #999;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.production strong {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.rpm strong {
+  font-size: 29px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.rpm span {
+  margin-left: 8px;
+  color: #43a96a;
+  font-size: 11px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 38px;
+  margin-bottom: 14px;
+}
+
+.chartHeader span {
+  font-size: 15px;
+}
+
+.chartHeader small {
+  color: #aaa;
+}
+
+.chart {
+  height: 245px;
+  position: relative;
+  padding: 15px 0 32px;
+}
+
+.gridLine {
+  position: relative;
+  height: 1px;
+  margin-bottom: 52px;
+  background: #eeeeee;
+}
+
+.chartSvg {
+  position: absolute;
+  inset: 15px 0 35px;
+  width: 100%;
+  height: 165px;
+  color: #6DD5FA;
+  overflow: visible;
+}
+
+.days {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  color: #aaa;
+  font-size: 11px;
+}
+
+.loadBadge {
+  position: absolute;
+  right: 0;
+  bottom: 35px;
+  padding: 17px 23px;
+  border-radius: 17px;
+  background: #2980B9;
+  color: #fff;
+}
+
+.loadBadge small {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.loadBadge strong {
+  font-size: 27px;
+  font-weight: 500;
+}
+
+/* =========================
+   MONITORING SECTION
+========================= */
+
+.monitoring {
+  width: min(1380px, 88%);
+  margin: 0 auto;
+  padding: 30px 0 110px;
+}
+
+.sectionIntro {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 300px;
+  align-items: end;
+  padding-bottom: 45px;
+  border-bottom: 1px solid #dedede;
+}
+
+.eyebrow {
+  display: inline-block;
+  width: fit-content;
+  padding: 9px 14px;
+  border-radius: 50px;
+  background: #6DD5FA;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.sectionIntro h2 {
+  margin: 0;
+  font-size: clamp(42px, 4vw, 62px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+
+.sectionIntro h2 span {
+  color: #888;
+}
+
+.sectionIntro p {
+  max-width: 280px;
+  margin: 0;
+  color: #777;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Feature cards */
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  padding-top: 24px;
+}
+
+.featureCard {
+  min-height: 235px;
+  padding: 22px;
+  border: 1px solid #e6e6e6;
+  border-radius: 22px;
+  background: #fff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.07);
+}
+
+.featureTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.featureNumber {
+  color: #aaa;
+  font-size: 11px;
+}
+
+.featureIcon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5f5f5;
+  font-size: 18px;
+}
+
+.featureCard h3 {
+  margin: 65px 0 9px;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.featureCard p {
+  margin: 0;
+  color: #888;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .heroContent {
+    grid-template-columns: 1fr;
+  }
+
+  .copy {
+    max-width: 700px;
+  }
+
+  .analytics {
+    max-width: 800px;
+  }
+
+  .sectionIntro {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sectionIntro p {
+    grid-column: 2;
+  }
+
+  .featureGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    padding: 45px 20px 70px;
+  }
+
+  .copy h1 {
+    font-size: 48px;
+  }
+
+  .lead {
+    margin-top: 30px;
+    font-size: 21px;
+  }
+
+  .analytics {
+    padding: 20px;
+    border-radius: 24px;
+    min-height: auto;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .loadBadge {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: -65px;
+  }
+
+  .monitoring {
+    width: calc(100% - 40px);
+    padding-bottom: 70px;
+  }
+
+  .sectionIntro {
+    display: block;
+  }
+
+  .sectionIntro h2 {
+    margin-top: 25px;
+  }
+
+  .sectionIntro p {
+    margin-top: 22px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featureCard {
+    min-height: 190px;
+  }
+
+  .featureCard h3 {
+    margin-top: 45px;
+  }
+}

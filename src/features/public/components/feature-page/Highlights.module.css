@@ -1,0 +1,338 @@
+.section {
+  --card-w: min(1050px, 86vw);
+  --gap: 16px;
+  --ink: #1d1d1f;
+  padding: 72px 0 80px;
+  background: #fff;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+.head {
+  width: var(--card-w);
+  margin: 0 auto 36px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Scroller ---------- */
+
+.scroller {
+  position: relative; /* makes the scroller the offsetParent for the JS centring maths */
+  display: flex;
+  gap: var(--gap);
+  margin: 0;
+  padding: 0 calc((100% - var(--card-w)) / 2);
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  --accent: #e0a526;
+  position: relative;
+  flex: 0 0 var(--card-w);
+  aspect-ratio: 1050 / 567;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 44px 24px 0;
+  border-radius: 28px;
+  overflow: hidden;
+  scroll-snap-align: center;
+  cursor: pointer;
+  color: var(--fg);
+  background: var(--bg);
+  transition: opacity 0.5s ease;
+}
+
+.card:not(.isActive) {
+  opacity: 0.55;
+}
+
+.isActive {
+  cursor: default;
+}
+
+.forest {
+  --bg: #16291f;
+  --fg: #f1efe6;
+}
+
+.wheat {
+  --bg: #eadfc4;
+  --fg: #2a2415;
+  --accent: #a8641a;
+}
+
+.slate {
+  --bg: #1f2b36;
+  --fg: #e9eef2;
+}
+
+.stone {
+  --bg: #f5f5f7;
+  --fg: #1d1d1f;
+  --accent: #2f8a57;
+}
+
+.copy {
+  max-width: 460px;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(17px, 1.7vw, 21px);
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0 40px;
+}
+
+/* ---------- Visuals ---------- */
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 100%;
+  max-height: 220px;
+}
+
+.bars span {
+  width: clamp(22px, 4vw, 44px);
+  height: var(--h);
+  border-radius: 10px 10px 4px 4px;
+  background: var(--accent);
+  opacity: 0.9;
+}
+
+.bars span:nth-child(odd) {
+  opacity: 0.55;
+}
+
+.chart {
+  width: min(420px, 80%);
+  height: auto;
+  color: var(--fg);
+}
+
+.ring {
+  --size: clamp(140px, 22vw, 210px);
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+}
+
+/* the ring is a pseudo-element so the mask doesn't hide the number */
+.ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) calc(var(--score) * 1%), rgba(0, 0, 0, 0.1) 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 16px), #000 calc(100% - 15px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 16px), #000 calc(100% - 15px));
+}
+
+.ring span {
+  position: relative;
+  font-size: clamp(44px, 7vw, 72px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+
+.stages {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stages li {
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 600;
+}
+
+.stages li:not(:last-child)::after {
+  content: '';
+  display: inline-block;
+  width: clamp(12px, 3vw, 36px);
+  height: 1.5px;
+  margin-left: 22px;
+  margin-right: -32px;
+  background: currentColor;
+  opacity: 0.4;
+  vertical-align: middle;
+}
+
+.stages li:last-child {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #1b1405;
+}
+
+.phone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: clamp(130px, 18vw, 180px);
+  height: 100%;
+  max-height: 240px;
+  padding: 22px 16px;
+  border-radius: 28px 28px 0 0;
+  border: 3px solid var(--fg);
+  border-bottom: 0;
+  align-self: flex-end;
+  margin-bottom: -40px;
+}
+
+.phone i {
+  display: block;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--fg);
+  opacity: 0.16;
+}
+
+.phone i:first-child {
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(210, 210, 215, 0.64);
+}
+
+.dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(29, 29, 31, 0.4);
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+.dotActive {
+  width: 44px;
+  background: rgba(29, 29, 31, 0.3);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  border-radius: inherit;
+  transform-origin: left center;
+}
+
+.fillRunning {
+  transform: scaleX(0);
+  animation: fill var(--dur) linear forwards;
+}
+
+@keyframes fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.playBtn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(210, 210, 215, 0.64);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.dot:focus-visible,
+.playBtn:focus-visible {
+  outline: 2px solid #0071e3;
+  outline-offset: 3px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+  .section {
+    --card-w: 82vw;
+    --gap: 12px;
+    padding: 48px 0 56px;
+  }
+
+  .card {
+    aspect-ratio: 3 / 4;
+    padding-top: 32px;
+    border-radius: 24px;
+  }
+
+  .stages {
+    flex-direction: column;
+  }
+
+  .stages li::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .dot {
+    transition: none;
+  }
+}

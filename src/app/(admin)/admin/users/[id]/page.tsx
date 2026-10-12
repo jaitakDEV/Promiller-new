@@ -1,43 +1,132 @@
-import { auth } from "@/server/auth";
-import { redirect, notFound } from "next/navigation";
+import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import Link from "next/link";
 import { db } from "@/server/db";
 import { ROUTES } from "@/config/app";
+import { LEGAL_DOCUMENTS } from "@/config/legal";
 import { formatDate } from "@/lib/utils";
+import { formatIst } from "@/lib/datetime";
+import { formatPhone } from "@/lib/phone";
+import { logAdminAction, requireAdminPage } from "@/server/admin-guard";
 import { AdminUserActions } from "@/features/admin/components/admin-user-actions";
-import Link from "next/link";
+
+function Section({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div
+      style={{
+        background: "var(--color-background-primary)",
+        border: "0.5px solid var(--color-border-tertiary)",
+        borderRadius: "var(--border-radius-lg)",
+        overflow: "hidden",
+        marginBottom: "1.5rem",
+      }}
+    >
+      <div
+        style={{
+          padding: "1rem 1.25rem",
+          borderBottom: "0.5px solid var(--color-border-tertiary)",
+        }}
+      >
+        <p style={{ fontSize: "14px", fontWeight: 500, margin: 0 }}>{title}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function Row({
+  label,
+  value,
+  mono = false,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "16px",
+        padding: "10px 1.25rem",
+        borderBottom: "0.5px solid var(--color-border-tertiary)",
+        fontSize: "13px",
+      }}
+    >
+      <span style={{ color: "var(--color-text-secondary)" }}>{label}</span>
+      <span
+        style={{
+          fontWeight: 500,
+          color: "var(--color-text-primary)",
+          textAlign: "right",
+          wordBreak: "break-word",
+          ...(mono ? { fontFamily: "var(--font-mono)", fontSize: "12px" } : {}),
+        }}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
 
 export default async function AdminUserDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN")
-    redirect(ROUTES.dashboard);
+  // Verified against the database, not just the session token.
+  const admin = await requireAdminPage();
+  const { id } = await params;
 
   const user = await db.user.findUnique({
-    where: { id: params.id },
+    where: { id },
     select: {
       id: true,
       name: true,
       email: true,
+      phone: true,
+      phoneVerifiedAt: true,
       role: true,
       isActive: true,
       emailVerified: true,
       image: true,
       createdAt: true,
       updatedAt: true,
+      companyProfile: {
+        select: { companyName: true, city: true, state: true, gstin: true },
+      },
+      consentRecords: {
+        select: { id: true, document: true, version: true, acceptedAt: true },
+        orderBy: { acceptedAt: "desc" },
+        take: 20,
+      },
       _count: { select: { sessions: true } },
     },
   });
 
   if (!user) notFound();
 
-  const isSelf = session.user.id === user.id;
+  // Full phone and GSTIN are shown below: record who looked (ids only).
+  logAdminAction(admin.id, "view-user-details", user.id);
+
+  const isSelf = admin.id === user.id;
+  const company = user.companyProfile;
 
   const fields = [
-    { label: "ID", value: user.id },
-    { label: "Email", value: user.email },
+    { label: "ID", value: user.id, mono: true },
+    { label: "Email", value: user.email, mono: true },
+    {
+      label: "Phone",
+      value: user.phone ? formatPhone(user.phone) : "—",
+      mono: true,
+    },
+    {
+      label: "Phone verified",
+      value: user.phoneVerifiedAt
+        ? formatDate(user.phoneVerifiedAt)
+        : "Not verified",
+    },
     { label: "Role", value: user.role },
     { label: "Status", value: user.isActive ? "Active" : "Inactive" },
     {
@@ -50,6 +139,9 @@ export default async function AdminUserDetailPage({
     { label: "Member since", value: formatDate(user.createdAt) },
     { label: "Last updated", value: formatDate(user.updatedAt) },
   ];
+
+  const documentTitle = (document: string) =>
+    LEGAL_DOCUMENTS.find((d) => d.document === document)?.title ?? document;
 
   return (
     <div style={{ maxWidth: "640px" }}>
@@ -91,52 +183,61 @@ export default async function AdminUserDetailPage({
         </span>
       </div>
 
-      <div
-        style={{
-          background: "var(--color-background-primary)",
-          border: "0.5px solid var(--color-border-tertiary)",
-          borderRadius: "var(--border-radius-lg)",
-          overflow: "hidden",
-          marginBottom: "1.5rem",
-        }}
-      >
-        <div
-          style={{
-            padding: "1rem 1.25rem",
-            borderBottom: "0.5px solid var(--color-border-tertiary)",
-          }}
-        >
-          <p style={{ fontSize: "14px", fontWeight: 500, margin: 0 }}>
-            User info
-          </p>
-        </div>
-        {fields.map(({ label, value }) => (
-          <div
-            key={label}
+      <Section title="User info">
+        {fields.map((f) => (
+          <Row key={f.label} label={f.label} value={f.value} mono={f.mono} />
+        ))}
+      </Section>
+
+      <Section title="Company details">
+        {company &&
+        (company.companyName ||
+          company.city ||
+          company.state ||
+          company.gstin) ? (
+          <>
+            <Row label="Company / mill" value={company.companyName ?? "—"} />
+            <Row label="City" value={company.city ?? "—"} />
+            <Row label="State" value={company.state ?? "—"} />
+            <Row label="GSTIN" value={company.gstin ?? "—"} mono />
+          </>
+        ) : (
+          <p
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "10px 1.25rem",
-              borderBottom: "0.5px solid var(--color-border-tertiary)",
+              padding: "12px 1.25rem",
+              margin: 0,
               fontSize: "13px",
+              color: "var(--color-text-secondary)",
             }}
           >
-            <span style={{ color: "var(--color-text-secondary)" }}>
-              {label}
-            </span>
-            <span
-              style={{
-                fontWeight: 500,
-                color: "var(--color-text-primary)",
-                fontFamily: "var(--font-mono)",
-                fontSize: "12px",
-              }}
-            >
-              {value}
-            </span>
-          </div>
-        ))}
-      </div>
+            Not provided.
+          </p>
+        )}
+      </Section>
+
+      <Section title="Consent history">
+        {user.consentRecords.length > 0 ? (
+          user.consentRecords.map((c) => (
+            <Row
+              key={c.id}
+              label={`${documentTitle(c.document)} (version ${c.version})`}
+              value={formatIst(c.acceptedAt)}
+            />
+          ))
+        ) : (
+          <p
+            style={{
+              padding: "12px 1.25rem",
+              margin: 0,
+              fontSize: "13px",
+              color: "var(--color-text-secondary)",
+            }}
+          >
+            No consent recorded yet. This user will be asked to accept the
+            current terms at their next sign-in.
+          </p>
+        )}
+      </Section>
 
       {!isSelf && (
         <AdminUserActions

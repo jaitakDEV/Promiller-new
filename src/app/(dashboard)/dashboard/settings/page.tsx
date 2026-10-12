@@ -10,7 +10,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Settings — MDSSC" };
+export const metadata = { title: "Settings — PROMILLER" };
 
 export default async function SettingsPage() {
   const session = await auth();
@@ -95,7 +95,7 @@ export default async function SettingsPage() {
           >
             ⚠️ Once deleted, your account cannot be recovered.
           </div>
-          <DeleteAccountButton userId={session.user.id} />
+          <DeleteAccountButton />
         </CardContent>
       </Card>
     </div>

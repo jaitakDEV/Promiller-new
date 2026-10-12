@@ -2,6 +2,7 @@ import { LoginForm } from "@/features/auth/components/login-form";
 import { ResendVerificationBanner } from "@/features/auth/components/resend-verification-banner";
 import Link from "next/link";
 import { ROUTES } from "@/config/app";
+import { safeCallbackUrl } from "@/lib/safe-redirect";
 import {
   Card,
   CardContent,
@@ -16,9 +17,15 @@ export const metadata = { title: "Sign in — MDSSC" };
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ reset?: string; error?: string }>;
+  searchParams: Promise<{
+    reset?: string;
+    error?: string;
+    callbackUrl?: string;
+  }>;
 }) {
-  const { reset, error } = await searchParams;
+  const { reset, error, callbackUrl: rawCallback } = await searchParams;
+  // Only same-site paths under the allow-list survive; anything else is dropped.
+  const callbackUrl = safeCallbackUrl(rawCallback, "") || undefined;
 
   return (
     <Card>
@@ -60,7 +67,23 @@ export default async function LoginPage({
 
         {error === "unverified" && <ResendVerificationBanner />}
 
-        <LoginForm />
+        {error === "inactive" && (
+          <div
+            style={{
+              padding: "12px 14px",
+              background: "#fffbeb",
+              border: "1px solid #fde68a",
+              borderRadius: "10px",
+              fontSize: "13px",
+              color: "#92400e",
+            }}
+          >
+            Your account is inactive. Please contact support if you think this
+            is a mistake.
+          </div>
+        )}
+
+        <LoginForm callbackUrl={callbackUrl} />
       </CardContent>
 
       <CardFooter
@@ -76,7 +99,7 @@ export default async function LoginPage({
           <Link
             href={ROUTES.register}
             style={{
-              color: "#0951a5 ",
+              color: "#0951a5",
               fontWeight: 600,
               textDecoration: "none",
             }}
@@ -88,7 +111,7 @@ export default async function LoginPage({
           href={ROUTES.forgotPassword}
           style={{
             fontSize: "12px",
-            color: "#0951a5 ",
+            color: "#0951a5",
             textDecoration: "none",
           }}
         >

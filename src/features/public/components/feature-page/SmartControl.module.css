@@ -1,0 +1,1088 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section {
+  --navy: #12344a;
+  --primary: #2980b9;
+  --sky: #6dd5fa;
+  --blue: #2f7df6;
+  --orange: #f08a1c;
+  --green: #16a34a;
+  --muted: #587487;
+  --line: #dceaf2;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 90px 20px 100px;
+
+  text-align: center;
+
+  font-family: "Poppins", sans-serif;
+
+  overflow: hidden;
+}
+
+.section * {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.eyebrow {
+  margin: 0 0 14px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: #315f78;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+
+  width: 42px;
+  height: 1px;
+
+  background: rgba(41, 128, 185, 0.35);
+}
+
+.title {
+  margin: 0 auto;
+
+  max-width: 850px;
+
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.08;
+
+  font-weight: 700;
+  letter-spacing: -0.035em;
+
+  color: #12344a;
+}
+
+.title span {
+  display: block;
+
+  color: #2980b9;
+}
+
+.lede {
+  margin: 16px auto 38px;
+
+  max-width: 700px;
+
+  font-size: 16px;
+  line-height: 1.5;
+
+  color: #456c82;
+}
+
+/* =========================================================
+   DIAGRAM SCROLLER
+========================================================= */
+
+.scroller {
+  width: 100%;
+
+  overflow: hidden;
+
+  padding: 4px 0 12px;
+
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* =========================================================
+   DIAGRAM STAGE
+========================================================= */
+
+.stage {
+  position: relative;
+
+  width: min(100%, 940px);
+
+  min-width: 0;
+  max-width: 940px;
+
+  aspect-ratio: 860 / 270;
+
+  margin: 0 auto;
+
+  font-size: 13px;
+
+  overflow: visible;
+}
+
+/* =========================================================
+   BACKGROUND GLOBE
+========================================================= */
+
+.globe {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 47%;
+
+  aspect-ratio: 1;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      transparent 57%,
+      rgba(41, 128, 185, 0.035) 100%
+    ),
+    repeating-radial-gradient(
+      circle,
+      transparent 0 9px,
+      rgba(41, 128, 185, 0.055) 9px 10px
+    );
+
+  opacity: 0.9;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   WIRES
+========================================================= */
+
+.wires {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+.track {
+  fill: none;
+
+  stroke: var(--c);
+
+  stroke-opacity: 0.22;
+
+  stroke-width: 1.5;
+}
+
+.flow {
+  fill: none;
+
+  stroke: var(--c);
+
+  stroke-width: 1.8;
+
+  stroke-linecap: round;
+
+  stroke-dasharray: 5 11;
+
+  animation: dash 0.9s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card {
+  position: absolute;
+
+  transform: translateY(-50%);
+
+  height: 19.5%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  text-align: left;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border: 1px solid rgba(41, 128, 185, 0.13);
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 6px 22px rgba(18, 52, 74, 0.08);
+
+  z-index: 5;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-50%) scale(1.02);
+
+  box-shadow:
+    0 10px 28px rgba(18, 52, 74, 0.14);
+}
+
+/* =========================================================
+   LEFT CARDS
+========================================================= */
+
+.left {
+  left: 0;
+
+  width: 18.6%;
+}
+
+/* =========================================================
+   RIGHT CARDS
+========================================================= */
+
+.right {
+  left: 73%;
+
+  width: 27%;
+
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.icon {
+  flex: 0 0 auto;
+
+  display: grid;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 14px;
+
+  font-size: 22px;
+}
+
+.icon.green {
+  background: #e6f6ec;
+  color: var(--green);
+}
+
+.icon.blue {
+  background: #e7f0ff;
+  color: var(--blue);
+}
+
+.icon.orange {
+  background: #fff0df;
+  color: var(--orange);
+}
+
+/* =========================================================
+   CARD TEXT
+========================================================= */
+
+.text {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+.text strong {
+  display: block;
+
+  font-size: 14px;
+  line-height: 1.2;
+
+  font-weight: 600;
+
+  color: var(--navy);
+
+  white-space: normal;
+}
+
+.text small {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 11px;
+  line-height: 1.25;
+
+  color: var(--muted);
+
+  white-space: normal;
+}
+
+/* RIGHT CARD TEXT */
+
+.right .text strong {
+  font-size: 13px;
+}
+
+.right .text small {
+  font-size: 10px;
+}
+
+/* =========================================================
+   PILLS
+========================================================= */
+
+.pill {
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+
+  padding: 8px 20px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #ffffff;
+
+  border-radius: 999px;
+
+  z-index: 6;
+
+  box-shadow:
+    0 4px 12px rgba(18, 52, 74, 0.18);
+
+  white-space: nowrap;
+}
+
+.pill.green {
+  background: linear-gradient(
+    135deg,
+    #34d37a,
+    #16a34a
+  );
+}
+
+.pill.blue {
+  background: linear-gradient(
+    135deg,
+    #5aa2ff,
+    #2f7df6
+  );
+}
+
+.pill.orange {
+  background: linear-gradient(
+    135deg,
+    #ffb24d,
+    #f08a1c
+  );
+}
+
+/* =========================================================
+   HUB
+========================================================= */
+
+.hub {
+  position: absolute;
+
+  left: 42.2%;
+  top: 25.2%;
+
+  width: 14.5%;
+  height: 46.3%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 2px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      160deg,
+      #ffffff,
+      #f1fbff
+    );
+
+  border: 2px solid #35bfa9;
+
+  border-radius: 25px;
+
+  box-shadow:
+    0 0 0 6px rgba(53, 191, 169, 0.1),
+    0 18px 40px rgba(41, 128, 185, 0.15);
+
+  z-index: 4;
+}
+
+.hub strong {
+  font-size: 18px;
+
+  line-height: 1.1;
+
+  color: var(--navy);
+
+  font-weight: 700;
+}
+
+.hub small {
+  font-size: 12px;
+
+  color: var(--muted);
+}
+
+.hubIcon {
+  display: grid;
+  place-items: center;
+
+  width: 48px;
+  height: 48px;
+
+  margin-bottom: 7px;
+
+  font-size: 24px;
+
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2ec4b6,
+      #2980b9
+    );
+}
+
+.ring {
+  position: absolute;
+
+  inset: -2px;
+
+  border-radius: inherit;
+
+  border: 2px solid #35bfa9;
+
+  animation: ring 2.6s ease-out infinite;
+
+  pointer-events: none;
+}
+
+@keyframes ring {
+  from {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  to {
+    transform: scale(1.22);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   BARS
+========================================================= */
+
+.bars {
+  flex: 0 0 auto;
+
+  width: 52px;
+  height: 30px;
+
+  display: flex;
+  align-items: flex-end;
+
+  gap: 3px;
+}
+
+.bars i {
+  flex: 1;
+
+  min-width: 3px;
+
+  border-radius: 2px 2px 0 0;
+
+  background: #6dd5a0;
+
+  transform-origin: bottom;
+
+  animation:
+    grow 2.4s ease-in-out infinite alternate;
+}
+
+.bars i:last-child {
+  background: var(--green);
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0.7);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* =========================================================
+   SPARK LINE
+========================================================= */
+
+.spark {
+  flex: 0 0 auto;
+
+  width: 55px;
+  height: 28px;
+}
+
+.spark path {
+  fill: none;
+
+  stroke: var(--green);
+
+  stroke-width: 2;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  stroke-dasharray: 1;
+
+  animation:
+    draw 3s ease-in-out infinite;
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+
+  60%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+.toggle {
+  flex: 0 0 auto;
+
+  width: 42px;
+  height: 22px;
+
+  padding: 3px;
+
+  box-sizing: border-box;
+
+  border-radius: 999px;
+
+  background: var(--green);
+
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+.toggle b {
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+}
+
+/* =========================================================
+   DONUT
+========================================================= */
+
+.donut {
+  flex: 0 0 auto;
+
+  width: 38px;
+  height: 38px;
+
+  transform: rotate(-90deg);
+}
+
+.donut circle {
+  fill: none;
+
+  stroke-width: 6;
+}
+
+.donutBg {
+  stroke: #d6f0e0;
+}
+
+.donutFg {
+  stroke: var(--green);
+
+  stroke-dasharray: 72 100;
+
+  stroke-linecap: round;
+
+  animation:
+    spin 6s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+  from {
+    stroke-dasharray: 55 100;
+  }
+
+  to {
+    stroke-dasharray: 82 100;
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .section {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .stage {
+    width: 100%;
+
+    min-width: 0;
+
+    max-width: 940px;
+  }
+}
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 700px) {
+  .section {
+    padding-top: 45px;
+    padding-bottom: 50px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    gap: 10px;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    width: 25px;
+  }
+
+  .title {
+    font-size: clamp(30px, 7vw, 42px);
+  }
+
+  .lede {
+    font-size: 14px;
+
+    margin-bottom: 28px;
+  }
+
+  .card {
+    gap: 6px;
+
+    padding: 0 7px;
+
+    border-radius: 11px;
+  }
+
+  .icon {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 9px;
+
+    font-size: 16px;
+  }
+
+  .text strong {
+    font-size: 10px;
+  }
+
+  .text small {
+    font-size: 7.5px;
+  }
+
+  .right .text strong {
+    font-size: 9px;
+  }
+
+  .right .text small {
+    font-size: 7px;
+  }
+
+  .pill {
+    padding: 6px 12px;
+
+    font-size: 9px;
+  }
+
+  .hub {
+    border-radius: 18px;
+  }
+
+  .hubIcon {
+    width: 34px;
+    height: 34px;
+
+    margin-bottom: 4px;
+
+    font-size: 17px;
+  }
+
+  .hub strong {
+    font-size: 12px;
+  }
+
+  .hub small {
+    font-size: 8px;
+  }
+
+  .bars {
+    width: 32px;
+    height: 20px;
+
+    gap: 2px;
+  }
+
+  .spark {
+    width: 34px;
+    height: 18px;
+  }
+
+  .toggle {
+    width: 30px;
+    height: 16px;
+
+    padding: 2px;
+  }
+
+  .toggle b {
+    width: 12px;
+    height: 12px;
+  }
+
+  .donut {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 560px) {
+  .section {
+    padding: 40px 10px 45px;
+  }
+
+  .eyebrow {
+    margin-bottom: 12px;
+
+    font-size: 9px;
+
+    letter-spacing: 0.16em;
+  }
+
+  .eyebrow::before,
+  .eyebrow::after {
+    width: 18px;
+  }
+
+  .title {
+    font-size: 30px;
+
+    line-height: 1.1;
+  }
+
+  .lede {
+    margin-top: 13px;
+    margin-bottom: 25px;
+
+    padding: 0 10px;
+
+    font-size: 12px;
+  }
+
+  /*
+    IMPORTANT:
+    No horizontal scrolling.
+    The stage always stays inside the viewport.
+  */
+
+  .scroller {
+    width: 100%;
+    max-width: 100%;
+
+    overflow: hidden;
+
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .stage {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    aspect-ratio: 860 / 270;
+  }
+
+  .card {
+    height: 19.5%;
+
+    gap: 4px;
+
+    padding: 0 5px;
+
+    border-radius: 8px;
+
+    box-shadow:
+      0 3px 12px rgba(18, 52, 74, 0.07);
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+  }
+
+  .text strong {
+    font-size: 7.5px;
+    line-height: 1.1;
+  }
+
+  .text small {
+    margin-top: 2px;
+
+    font-size: 5.5px;
+    line-height: 1.1;
+  }
+
+  .right .text strong {
+    font-size: 7px;
+  }
+
+  .right .text small {
+    font-size: 5.2px;
+  }
+
+  .right {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .pill {
+    padding: 4px 8px;
+
+    font-size: 7px;
+  }
+
+  .hub {
+    border-width: 1.5px;
+
+    border-radius: 15px;
+
+    box-shadow:
+      0 0 0 4px rgba(53, 191, 169, 0.08),
+      0 10px 25px rgba(41, 128, 185, 0.12);
+  }
+
+  .hubIcon {
+    width: 27px;
+    height: 27px;
+
+    margin-bottom: 2px;
+
+    font-size: 13px;
+  }
+
+  .hub strong {
+    font-size: 9px;
+  }
+
+  .hub small {
+    font-size: 6px;
+  }
+
+  .bars {
+    width: 23px;
+    height: 14px;
+
+    gap: 1.5px;
+  }
+
+  .bars i {
+    min-width: 2px;
+  }
+
+  .spark {
+    width: 24px;
+    height: 13px;
+  }
+
+  .toggle {
+    width: 24px;
+    height: 13px;
+
+    padding: 2px;
+  }
+
+  .toggle b {
+    width: 9px;
+    height: 9px;
+  }
+
+  .donut {
+    width: 22px;
+    height: 22px;
+  }
+
+  .donut circle {
+    stroke-width: 5;
+  }
+}
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+  .section {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .title {
+    font-size: 27px;
+  }
+
+  .lede {
+    font-size: 11px;
+  }
+
+  .icon {
+    width: 21px;
+    height: 21px;
+
+    font-size: 11px;
+  }
+
+  .text strong {
+    font-size: 6.5px;
+  }
+
+  .text small {
+    font-size: 5px;
+  }
+
+  .right .text strong {
+    font-size: 6.2px;
+  }
+
+  .right .text small {
+    font-size: 4.7px;
+  }
+
+  .pill {
+    padding: 3px 6px;
+
+    font-size: 6px;
+  }
+
+  .hubIcon {
+    width: 23px;
+    height: 23px;
+
+    font-size: 11px;
+  }
+
+  .hub strong {
+    font-size: 7.5px;
+  }
+
+  .hub small {
+    font-size: 5px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .flow,
+  .ring,
+  .bars i,
+  .spark path,
+  .donutFg {
+    animation: none;
+  }
+
+  .pulse {
+    display: none;
+  }
+
+  .card,
+  .closeButton {
+    transition: none;
+  }
+}

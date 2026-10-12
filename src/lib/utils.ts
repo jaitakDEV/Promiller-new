@@ -23,7 +23,6 @@ export function formatDate(date: Date | string): string {
 }
 
 //api response helpers
-
 export function apiSuccess<T>(data: T) {
   return { success: true as const, data };
 }

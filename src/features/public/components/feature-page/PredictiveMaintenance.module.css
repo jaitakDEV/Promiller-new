@@ -1,0 +1,578 @@
+/* app/predictive-maintenance/page.module.css */
+
+.section {
+  width: 100%;
+  padding: 90px 6vw;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.container {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 80px;
+}
+
+/* =========================================
+   DASHBOARD — LEFT
+========================================= */
+
+.dashboardWrap {
+  min-width: 0;
+}
+
+.dashboard {
+  position: relative;
+  padding: 30px;
+  border: 1px solid rgba(220, 220, 220, 0.9);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.82);
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.06),
+    0 5px 20px rgba(0, 0, 0, 0.025);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.machineHeader {
+  position: relative;
+  display: grid;
+  grid-template-columns: 185px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.machineImage {
+  height: 155px;
+  border-radius: 18px;
+  background: #f5f5f3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Simple CSS machine illustration */
+.machineShape {
+  position: relative;
+  width: 115px;
+  height: 70px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #d5d5d2, #92928e);
+  box-shadow: inset 0 -8px 12px rgba(0, 0, 0, 0.12);
+  transform: skew(-8deg);
+}
+
+.machineShape::before {
+  content: "";
+  position: absolute;
+  width: 48px;
+  height: 52px;
+  left: 20px;
+  top: -20px;
+  border-radius: 12px;
+  background: #bdbdb8;
+}
+
+.machineShape::after {
+  content: "";
+  position: absolute;
+  right: -25px;
+  top: 15px;
+  width: 38px;
+  height: 40px;
+  border-radius: 7px;
+  background: #e6a91b;
+}
+
+.machineShape span {
+  position: absolute;
+  left: 6px;
+  bottom: -12px;
+  width: 105px;
+  height: 8px;
+  border-radius: 5px;
+  background: #666;
+}
+
+.machineShape i {
+  position: absolute;
+  right: -34px;
+  top: 22px;
+  width: 9px;
+  height: 25px;
+  background: #d39100;
+}
+
+.machineInfo h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.machineInfo > p {
+  margin: 5px 0 22px;
+  color: #89919c;
+  font-size: 13px;
+}
+
+.health {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.healthCircle {
+  width: 58px;
+  height: 58px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border: 5px solid #43c991;
+  border-left-color: #d9f4e8;
+  border-radius: 50%;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.health > div:last-child {
+  flex: 1;
+}
+
+.health span {
+  display: block;
+  margin-bottom: 8px;
+  color: #89919c;
+  font-size: 12px;
+}
+
+.healthBar {
+  width: 100%;
+  max-width: 180px;
+  height: 7px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #edf1ef;
+}
+
+.healthBar i {
+  display: block;
+  width: 92%;
+  height: 100%;
+  border-radius: inherit;
+  background: #42c991;
+}
+
+/* Glassmorphic Running capsule */
+
+.running {
+  position: absolute;
+  right: -18px;
+  top: -20px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 18px 27px;
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.42);
+
+  box-shadow:
+    0 15px 40px rgba(50, 70, 70, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.running span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #36c88b;
+  box-shadow: 0 0 0 9px rgba(54, 200, 139, 0.1);
+}
+
+.running strong {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Metrics */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 20px 22px;
+  border-right: 1px solid #eeeeee;
+}
+
+.metric:first-child {
+  padding-left: 0;
+}
+
+.metric:last-child {
+  border-right: 0;
+}
+
+.metricIcon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: #fff3c8;
+  color: #d69c00;
+  font-size: 17px;
+}
+
+.metric span {
+  display: block;
+  margin-bottom: 5px;
+  color: #89919c;
+  font-size: 12px;
+}
+
+.metric strong {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* Chart */
+
+.dashboardBottom {
+  display: grid;
+  grid-template-columns: 1.55fr 0.9fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.chartCard,
+.maintenanceCard {
+  border-radius: 20px;
+}
+
+.chartCard {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+}
+
+.chartCard h4 {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chart {
+  position: relative;
+  height: 145px;
+}
+
+.chartGrid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(#f1f1f1 1px, transparent 1px)
+    0 0 / 100% 50%;
+}
+
+.chart svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 115px;
+  color: #f5b719;
+  overflow: visible;
+}
+
+.chartDays {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  color: #a1a6ad;
+  font-size: 9px;
+}
+
+.maintenanceCard {
+  padding: 20px;
+  background: #fff9e8;
+}
+
+.maintenanceIcon {
+  width: 37px;
+  height: 37px;
+  margin-bottom: 14px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: #ffedb1;
+  color: #d49d00;
+}
+
+.maintenanceCard strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.maintenanceCard span {
+  display: block;
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+.maintenanceCard small {
+  display: block;
+  margin-top: 13px;
+  color: #929292;
+  font-size: 10px;
+}
+
+/* =========================================
+   CONTENT — RIGHT
+========================================= */
+
+.content {
+  max-width: 580px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 9px 15px;
+
+  border-radius: 50px;
+  background: #ffd13b;
+
+  color: #181818;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.content h1 {
+  margin: 0;
+
+  font-size: clamp(52px, 5vw, 76px);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  font-weight: 500;
+}
+
+.content h1 span {
+  color: #8b8f94;
+}
+
+.content h2 {
+  max-width: 540px;
+  margin: 32px 0 18px;
+
+  color: #68717d;
+  font-size: 23px;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+}
+
+.description {
+  max-width: 530px;
+  margin: 0;
+
+  color: #89929e;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* Highlighted downtime stat */
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  margin: 26px 0 32px;
+}
+
+.stat strong {
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+}
+
+.stat > span {
+  color: #293b50;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.stat small {
+  display: block;
+  margin-top: 4px;
+  color: #9299a2;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Feature list */
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 35px;
+  row-gap: 24px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.featureIcon {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 45px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  background: #fff1bd;
+
+  font-size: 19px;
+  color: #19283a;
+}
+
+.feature h3 {
+  margin: 2px 0 5px;
+
+  color: #24354b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.feature p {
+  margin: 0;
+
+  color: #8a95a3;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .dashboard {
+    max-width: 850px;
+  }
+
+  .content {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 700px) {
+  .section {
+    padding: 55px 20px;
+  }
+
+  .dashboard {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .machineHeader {
+    grid-template-columns: 115px 1fr;
+    gap: 15px;
+  }
+
+  .machineImage {
+    height: 120px;
+  }
+
+  .running {
+    right: -5px;
+    top: -15px;
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+
+  .running strong {
+    font-size: 12px;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .metric,
+  .metric:first-child {
+    padding: 12px 0;
+    border-right: 0;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .metric:last-child {
+    border-bottom: 0;
+  }
+
+  .dashboardBottom {
+    grid-template-columns: 1fr;
+  }
+
+  .content h1 {
+    font-size: 50px;
+  }
+
+  .content h2 {
+    font-size: 20px;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+}

@@ -1,5 +1,5 @@
-// import { Navbar } from "@/features/public/components/Navbar";
-import Footer from "@/features/public/components/fotter";
+import Navbar from "@/features/public/components/navbar";
+import Footer from "@/features/public/components/footer";
 
 export default function PublicLayout({
   children,
@@ -8,7 +8,7 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <main style={{ paddingTop: "0px" }}>{children}</main>
       <Footer />
     </>

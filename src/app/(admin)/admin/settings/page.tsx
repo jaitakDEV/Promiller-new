@@ -95,7 +95,7 @@ export default async function AdminSettingsPage() {
           >
             ⚠️ Once deleted, your account cannot be recovered.
           </div>
-          <DeleteAccountButton userId={session.user.id} />
+          <DeleteAccountButton />
         </CardContent>
       </Card>
     </div>

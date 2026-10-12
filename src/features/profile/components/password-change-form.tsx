@@ -3,26 +3,22 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { z } from "zod";
 import { changePasswordAction } from "@/features/profile/actions/change-password";
+import {
+  changePasswordSchema,
+  type ChangePasswordInput,
+} from "@/validations/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const schema = z
-  .object({
-    currentPassword: z.string().min(1, "Current password is required"),
-    newPassword: z.string().min(8).regex(/[A-Z]/).regex(/[0-9]/),
-    confirmPassword: z.string(),
-  })
-  .refine((d) => d.newPassword === d.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+const errorStyle = {
+  fontSize: "12px",
+  color: "var(--color-text-danger)",
+  marginTop: "4px",
+} as const;
 
-type Input = z.infer<typeof schema>;
-
-export function PasswordChangeForm({ userId }: { userId: string }) {
+export function PasswordChangeForm() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -32,17 +28,15 @@ export function PasswordChangeForm({ userId }: { userId: string }) {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Input>({ resolver: zodResolver(schema) });
+  } = useForm<ChangePasswordInput>({
+    resolver: zodResolver(changePasswordSchema),
+  });
 
-  async function onSubmit(data: Input) {
+  async function onSubmit(data: ChangePasswordInput) {
     setLoading(true);
     setError(null);
     setSuccess(false);
-    const res = await changePasswordAction(
-      userId,
-      data.currentPassword,
-      data.newPassword,
-    );
+    const res = await changePasswordAction(data);
     setLoading(false);
     if (!res.success) {
       setError(res.error);
@@ -63,19 +57,12 @@ export function PasswordChangeForm({ userId }: { userId: string }) {
         <Input
           id="currentPassword"
           type="password"
+          autoComplete="current-password"
           style={{ marginTop: "6px" }}
           {...register("currentPassword")}
         />
         {errors.currentPassword && (
-          <p
-            style={{
-              fontSize: "12px",
-              color: "var(--color-text-danger)",
-              marginTop: "4px",
-            }}
-          >
-            {errors.currentPassword.message}
-          </p>
+          <p style={errorStyle}>{errors.currentPassword.message}</p>
         )}
       </div>
       <div>
@@ -83,19 +70,12 @@ export function PasswordChangeForm({ userId }: { userId: string }) {
         <Input
           id="newPassword"
           type="password"
+          autoComplete="new-password"
           style={{ marginTop: "6px" }}
           {...register("newPassword")}
         />
         {errors.newPassword && (
-          <p
-            style={{
-              fontSize: "12px",
-              color: "var(--color-text-danger)",
-              marginTop: "4px",
-            }}
-          >
-            {errors.newPassword.message}
-          </p>
+          <p style={errorStyle}>{errors.newPassword.message}</p>
         )}
       </div>
       <div>
@@ -103,19 +83,12 @@ export function PasswordChangeForm({ userId }: { userId: string }) {
         <Input
           id="confirmPassword"
           type="password"
+          autoComplete="new-password"
           style={{ marginTop: "6px" }}
           {...register("confirmPassword")}
         />
         {errors.confirmPassword && (
-          <p
-            style={{
-              fontSize: "12px",
-              color: "var(--color-text-danger)",
-              marginTop: "4px",
-            }}
-          >
-            {errors.confirmPassword.message}
-          </p>
+          <p style={errorStyle}>{errors.confirmPassword.message}</p>
         )}
       </div>
       {success && (

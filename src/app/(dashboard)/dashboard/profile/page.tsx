@@ -2,7 +2,9 @@ import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/server/db";
 import { ROUTES } from "@/config/app";
+import { splitPhone } from "@/lib/phone";
 import { ProfileForm } from "@/features/profile/components/profile-form";
+import { CompanyProfileForm } from "@/features/profile/components/company-profile-form";
 import { PasswordChangeForm } from "@/features/profile/components/password-change-form";
 import {
   Card,
@@ -12,7 +14,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Profile — MDSSC" };
+export const metadata = { title: "Profile — PROMILLER" };
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -20,10 +22,15 @@ export default async function ProfilePage() {
 
   const user = await db.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, name: true, email: true, image: true },
+    select: { id: true, name: true, email: true, image: true, phone: true },
   });
 
   if (!user) redirect(ROUTES.login);
+
+  const company = await db.companyProfile.findUnique({
+    where: { userId: user.id },
+    select: { companyName: true, city: true, state: true, gstin: true },
+  });
 
   return (
     <div
@@ -59,11 +66,42 @@ export default async function ProfilePage() {
             Personal info
           </CardTitle>
           <CardDescription>
-            Update your name and profile picture.
+            Update your name, phone number and profile picture.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ProfileForm user={user} />
+          <ProfileForm
+            user={{
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              image: user.image,
+            }}
+            defaultPhone={splitPhone(user.phone)}
+          />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle
+            style={{ fontSize: "14px", fontWeight: 600, color: "#0f172a" }}
+          >
+            Company details
+          </CardTitle>
+          <CardDescription>
+            Shown on the reports you generate. Optional.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <CompanyProfileForm
+            defaults={{
+              companyName: company?.companyName ?? "",
+              city: company?.city ?? "",
+              state: company?.state ?? "",
+              gstin: company?.gstin ?? "",
+            }}
+          />
         </CardContent>
       </Card>
 
@@ -79,7 +117,7 @@ export default async function ProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <PasswordChangeForm userId={user.id} />
+          <PasswordChangeForm />
         </CardContent>
       </Card>
     </div>

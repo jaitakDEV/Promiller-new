@@ -10,7 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Create account — MDSSC" };
+export const metadata = { title: "Create account — PROMILLER" };
 
 export default function RegisterPage() {
   return (
@@ -28,7 +28,7 @@ export default function RegisterPage() {
           Create your account.
         </CardTitle>
         <CardDescription>
-          Join MDSSC and start managing your business smarter.
+          Join Promiller and start managing your business smarter.
         </CardDescription>
       </CardHeader>
 

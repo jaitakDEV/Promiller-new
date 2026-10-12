@@ -1,10 +1,18 @@
-import { auth } from "@/server/auth";
-import { redirect } from "next/navigation";
+import type { Prisma } from "@prisma/client";
 import { db } from "@/server/db";
 import { ROUTES } from "@/config/app";
+import { maskPhone } from "@/lib/phone";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { ToggleUserStatusButton } from "@/features/admin/components/toggle-user-status-button";
+import { cookies } from "next/headers";
+import {
+  clearUserSearchAction,
+  setUserSearchAction,
+} from "@/features/admin/actions/user-search";
+
+import { USER_SEARCH_COOKIE } from "@/config/app";
+import { requireAdminPage } from "@/server/admin-guard";
 
 export const metadata = { title: "Admin — Users" };
 
@@ -13,21 +21,26 @@ const PAGE_SIZE = 20;
 export default async function AdminUsersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string; q?: string }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const session = await auth();
-  if (!session?.user || session.user.role !== "ADMIN")
-    redirect(ROUTES.dashboard);
+  const admin = await requireAdminPage();
 
-  const { page: pageParam, q } = await searchParams;
-  const page = Math.max(1, Number(pageParam ?? 1));
-  const query = q?.trim() ?? "";
+  const { page: pageParam } = await searchParams;
+  const parsedPage = Number.parseInt(pageParam ?? "1", 10);
+  const page = Number.isFinite(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
-  const where = query
+  const query = (await cookies()).get(USER_SEARCH_COOKIE)?.value?.trim() ?? "";
+
+  const phoneDigits = query.replace(/\D/g, "").replace(/^0+/, "");
+
+  const where: Prisma.UserWhereInput = query
     ? {
         OR: [
-          { name: { contains: query, mode: "insensitive" as const } },
-          { email: { contains: query, mode: "insensitive" as const } },
+          { name: { contains: query, mode: "insensitive" } },
+          { email: { contains: query, mode: "insensitive" } },
+          ...(phoneDigits.length >= 4
+            ? [{ phone: { contains: phoneDigits } }]
+            : []),
         ],
       }
     : {};
@@ -42,6 +55,7 @@ export default async function AdminUsersPage({
         id: true,
         name: true,
         email: true,
+        phone: true,
         role: true,
         isActive: true,
         emailVerified: true,
@@ -92,56 +106,61 @@ export default async function AdminUsersPage({
           </p>
         </div>
 
-        <form method="GET" style={{ display: "flex", gap: "8px" }}>
-          <input
-            name="q"
-            defaultValue={query}
-            placeholder="Search name or email…"
-            style={{
-              fontSize: "13px",
-              padding: "8px 12px",
-              border: "1px solid #e2e8f0",
-              borderRadius: "8px",
-              background: "#fff",
-              color: "#0f172a",
-              width: "220px",
-              outline: "none",
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              fontSize: "13px",
-              padding: "8px 16px",
-              border: "1px solid #e2e8f0",
-              borderRadius: "8px",
-              background: "#1d4ed8",
-              color: "#fff",
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
+        <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <form
+            action={setUserSearchAction}
+            style={{ display: "flex", gap: "8px" }}
           >
-            Search
-          </button>
-          {query && (
-            <Link
-              href={ROUTES.adminUsers}
+            <input
+              name="q"
+              defaultValue={query}
+              placeholder="Search name, email or phone…"
               style={{
                 fontSize: "13px",
-                padding: "8px 14px",
+                padding: "8px 12px",
                 border: "1px solid #e2e8f0",
                 borderRadius: "8px",
-                color: "#64748b",
-                textDecoration: "none",
-                display: "flex",
-                alignItems: "center",
                 background: "#fff",
+                color: "#0f172a",
+                width: "250px",
+                outline: "none",
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                fontSize: "13px",
+                padding: "8px 16px",
+                border: "1px solid #e2e8f0",
+                borderRadius: "8px",
+                background: "#1d4ed8",
+                color: "#fff",
+                cursor: "pointer",
+                fontWeight: 600,
               }}
             >
-              Clear
-            </Link>
+              Search
+            </button>
+          </form>
+          {query && (
+            <form action={clearUserSearchAction}>
+              <button
+                type="submit"
+                style={{
+                  fontSize: "13px",
+                  padding: "8px 14px",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "8px",
+                  color: "#64748b",
+                  background: "#fff",
+                  cursor: "pointer",
+                }}
+              >
+                Clear
+              </button>
+            </form>
           )}
-        </form>
+        </div>
       </div>
 
       <Card style={{ marginBottom: "1rem" }}>
@@ -164,6 +183,7 @@ export default async function AdminUsersPage({
                   {[
                     "Name",
                     "Email",
+                    "Phone",
                     "Role",
                     "Status",
                     "Verified",
@@ -202,6 +222,15 @@ export default async function AdminUsersPage({
                     </td>
                     <td style={{ padding: "12px 16px", color: "#64748b" }}>
                       {u.email}
+                    </td>
+                    <td
+                      style={{
+                        padding: "12px 16px",
+                        color: "#64748b",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {u.phone ? maskPhone(u.phone) : "—"}
                     </td>
                     <td style={{ padding: "12px 16px" }}>
                       <span
@@ -261,7 +290,7 @@ export default async function AdminUsersPage({
                         <ToggleUserStatusButton
                           userId={u.id}
                           isActive={u.isActive}
-                          isSelf={u.id === session.user.id}
+                          isSelf={u.id === admin.id}
                         />
                         <Link
                           href={`${ROUTES.adminUsers}/${u.id}`}
@@ -285,7 +314,7 @@ export default async function AdminUsersPage({
                 {users.length === 0 && (
                   <tr>
                     <td
-                      colSpan={7}
+                      colSpan={8}
                       style={{
                         padding: "3rem",
                         textAlign: "center",
@@ -309,7 +338,7 @@ export default async function AdminUsersPage({
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
             <Link
               key={p}
-              href={`${ROUTES.adminUsers}?page=${p}${query ? `&q=${query}` : ""}`}
+              href={`${ROUTES.adminUsers}?page=${p}`}
               style={{
                 fontSize: "13px",
                 padding: "6px 12px",

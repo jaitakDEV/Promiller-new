@@ -10,7 +10,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 
-export const metadata = { title: "Forgot password — MDSSC" };
+export const metadata = { title: "Forgot password — PROMILLER" };
 
 export default function ForgotPasswordPage() {
   return (

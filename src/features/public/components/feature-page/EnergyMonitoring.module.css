@@ -1,0 +1,746 @@
+/* ==========================================================================
+   SECTION
+   --gutter : section ka left/right padding
+   --bleed  : visual column ke right edge se section ke right edge tak ki
+              doori. Dashboard isi se right edge tak chipkta hai, chahe
+              screen kitni bhi badi ho.
+   ========================================================================== */
+
+.section {
+  --gutter: 50px;
+  --bleed: var(--gutter); /* fallback (purane browsers) */
+
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  container-type: inline-size; /* 100cqw = section ki content width */
+  background: #f7f7f5;
+  border-radius: 42px;
+  padding: 90px var(--gutter) 0;
+}
+
+/* Container 1440px par center hota hai, to badi screen par side mein extra
+   jagah bachti hai. Wo bhi bleed mein jod do. */
+@supports (width: 1cqw) {
+  .section {
+    --bleed: calc(var(--gutter) + max(0px, (100cqw - 1440px) / 2));
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: 820px;
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: 50px;
+}
+
+.left,
+.visual {
+  min-width: 0;
+}
+
+/* =========================
+   LEFT CONTENT
+========================= */
+
+.left {
+  position: relative;
+  z-index: 5;
+  padding-top: 15px;
+}
+
+.eyebrow {
+  display: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.heading {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(48px, 5vw, 72px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  font-weight: 400;
+  color: #171717;
+}
+
+.subheading {
+  margin: 25px 0 50px;
+  max-width: 430px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #777;
+}
+
+.featureList {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.featureCard {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  text-align: left;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.035),
+    0 10px 30px rgba(0, 0, 0, 0.045);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.07);
+}
+
+/* keyboard users ke liye focus ring (pehle outline: 0 se gayab tha) */
+.featureCard:focus-visible {
+  outline: 2px solid #2980b9;
+  outline-offset: 3px;
+}
+
+.featureCardOpen {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cardTop {
+  min-height: 72px;
+  padding: 14px 14px 14px 21px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  line-height: 1.35;
+  font-weight: 400;
+  color: #292929;
+}
+
+.plus {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1ef;
+  color: #222;
+  font-size: 23px;
+  font-weight: 300;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.plusOpen {
+  transform: rotate(45deg);
+  background: #2980b9;
+  color: #fff;
+}
+
+.cardContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.cardContent p {
+  min-height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #777;
+}
+
+.cardContentOpen {
+  grid-template-rows: 1fr;
+}
+
+.cardContentOpen p {
+  padding-bottom: 20px;
+}
+
+/* =========================
+   DASHBOARD VISUAL
+========================= */
+
+.visual {
+  position: relative;
+  min-height: 780px;
+  padding-top: 25px;
+}
+
+/*
+  Dashboard ab "left + right" se anchor hai, fixed width se nahi:
+  - left  : visual ke hisaab se thoda andar se shuru
+  - right : negative bleed => hamesha section ke right edge tak chipka
+  - min-width : agar jagah kam ho to dashboard right side se thoda crop
+                hoga (gap kabhi nahi aayega)
+*/
+.dashboard {
+  position: absolute;
+  z-index: 2;
+  top: 35px;
+  left: clamp(140px, 27%, 230px);
+  right: calc(-1 * var(--bleed));
+  min-width: 460px;
+  min-height: 570px;
+  border: 12px solid #17181b;
+  border-right: 0; /* right edge par dark patti nahi */
+  border-radius: 32px 0 0 32px;
+  background: #fff;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 25px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.dashboardHeader {
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.5vw, 30px);
+  padding: 0 20px;
+  background: #0e0e0e;
+  color: #fff;
+}
+
+.logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 110px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.logoMark {
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-size: 9px;
+}
+
+.search {
+  flex: 0 1 190px;
+  min-width: 0;
+  height: 29px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-radius: 8px;
+  background: #202020;
+  color: #666;
+  font-size: 10px;
+}
+
+.headerDot {
+  flex: 0 0 8px;
+  margin-left: auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.dashboardBody {
+  padding: 30px 25px;
+}
+
+.revenueLabel {
+  font-size: 10px;
+  color: #9a9a9a;
+  margin-bottom: 4px;
+}
+
+.energyValue {
+  font-variant-numeric: tabular-nums;
+  font-size: 38px;
+  letter-spacing: -0.04em;
+  color: #151515;
+}
+
+.energyValue span {
+  font-size: 15px;
+  color: #999;
+  margin-left: 4px;
+}
+
+.energyValue small {
+  font-size: 9px;
+  margin-left: 12px;
+  color: #38b978;
+  vertical-align: middle;
+}
+
+.chart {
+  height: 230px;
+  margin-top: 25px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+
+.chart::before,
+.chart::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed #eee;
+}
+
+.chart::before {
+  top: 35%;
+}
+
+.chart::after {
+  top: 70%;
+}
+
+.bars {
+  position: absolute;
+  left: 20px;
+  right: 10px;
+  bottom: 0;
+  height: 190px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* max-width hata diya: bada dashboard hone par bars bhi proportionally badhenge */
+.bar {
+  flex: 1;
+  min-width: 0;
+  border-radius: 9px 9px 0 0;
+  background: linear-gradient(180deg, #3b9ad9 0%, #2980b9 100%);
+}
+
+.chartLabels {
+  position: absolute;
+  left: 15px;
+  right: 10px;
+  bottom: -25px;
+  display: flex;
+  justify-content: space-between;
+  color: #aaa;
+  font-size: 8px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 42px;
+}
+
+.statCard {
+  padding: 15px;
+  border-radius: 12px;
+  background: #f7f7f6;
+}
+
+.statCard span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 9px;
+  color: #999;
+  white-space: nowrap;
+}
+
+.statCard strong {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.progress {
+  height: 4px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e4e4e4;
+}
+
+.progress i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #2980b9;
+}
+
+/* =========================
+   PHONE
+========================= */
+
+.phone {
+  position: absolute;
+  z-index: 4;
+  top: 245px;
+  left: 0; /* pehle -40px tha: ab thoda right shift */
+  width: 245px;
+  height: 480px;
+  padding: 38px 17px 20px;
+  border: 9px solid #17181b;
+  border-radius: 38px;
+  background: #fff;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.12),
+    0 30px 55px rgba(0, 0, 0, 0.25);
+}
+
+/* side buttons (power right, volume left) */
+.phone::before,
+.phone::after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  background: #17181b;
+}
+
+.phone::before {
+  right: -12px;
+  top: 105px;
+  height: 58px;
+  border-radius: 0 3px 3px 0;
+}
+
+.phone::after {
+  left: -12px;
+  top: 85px;
+  height: 36px;
+  border-radius: 3px 0 0 3px;
+}
+
+.phoneNotch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 95px;
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #17181b;
+}
+
+.phoneHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.phoneLabel {
+  display: block;
+  font-size: 9px;
+  color: #aaa;
+}
+
+.phoneValue {
+  display: block;
+  margin-top: 3px;
+  font-size: 25px;
+  letter-spacing: -0.04em;
+}
+
+.phoneChange {
+  display: block;
+  margin-top: 5px;
+  font-size: 8px;
+  color: #38b978;
+}
+
+.phoneChart {
+  height: 145px;
+  margin-top: 25px;
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.phoneBar {
+  flex: 1;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(180deg, #3b9ad9 0%, #2980b9 100%);
+}
+
+.phoneReport {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 9px;
+  color: #777;
+}
+
+.phoneReport strong {
+  color: #222;
+  font-size: 11px;
+}
+
+/* =========================
+   BACKGROUND BRAND
+========================= */
+
+.brandText {
+  position: absolute;
+  z-index: 6; /* dashboard (2) aur phone (4) dono ke upar */
+  left: -20px;
+  bottom: -10px;
+  white-space: nowrap;
+  font-size: clamp(120px, 17vw, 240px);
+  line-height: 0.8;
+  letter-spacing: -0.09em;
+  font-weight: 500;
+  color: #2980b9; /* fallback */
+  background: linear-gradient(180deg, #3b9ad9 0%, #1f6fa3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+  pointer-events: none; /* click neeche wale elements tak jaayega */
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* ---------- Tablet / small laptop: single column ---------- */
+@media (max-width: 1100px) {
+  .section {
+    --gutter: 30px;
+    padding-top: 70px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .left {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .featureList {
+    max-width: none;
+  }
+
+  .visual {
+    min-height: 740px; /* phone ka bottom (725px) ab kategaa nahi */
+    margin-top: 20px;
+  }
+
+  .dashboard {
+    left: clamp(150px, 20%, 230px);
+    min-width: 500px;
+  }
+
+  .phone {
+    left: 6%;
+  }
+}
+
+/* ---------- Mobile (large) ---------- */
+@media (max-width: 700px) {
+  .section {
+    --gutter: 20px;
+    border-radius: 25px;
+    padding-top: 55px;
+  }
+
+  .heading {
+    font-size: 48px;
+  }
+
+  .subheading {
+    margin-bottom: 35px;
+  }
+
+  .cardTop {
+    min-height: 66px;
+  }
+
+  .cardTitle {
+    font-size: 14px;
+  }
+
+  .visual {
+    min-height: 540px;
+    margin-top: 10px;
+    padding-top: 0;
+  }
+
+  /* Dashboard: scale() ki jagah compact sizes. Right edge tak bleed
+     wahi rehta hai, min-width se kabhi gap nahi banta. */
+  .dashboard {
+    top: 24px;
+    left: 64px;
+    min-width: 400px;
+    min-height: 0;
+    border-width: 8px;
+    border-radius: 22px 0 0 22px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+  }
+
+  .dashboardHeader {
+    height: 44px;
+    gap: 12px;
+    padding: 0 14px;
+  }
+
+  .logo {
+    min-width: 0;
+    font-size: 12px;
+  }
+
+  .search {
+    flex-basis: 150px;
+    height: 26px;
+  }
+
+  .dashboardBody {
+    padding: 18px 16px;
+  }
+
+  .energyValue {
+    font-size: 28px;
+  }
+
+  .chart {
+    height: 170px;
+    margin-top: 18px;
+  }
+
+  .bars {
+    left: 12px;
+    height: 140px;
+    gap: 6px;
+  }
+
+  .bar {
+    border-radius: 6px 6px 0 0;
+  }
+
+  .chartLabels {
+    left: 10px;
+    bottom: -22px;
+  }
+
+  .stats {
+    gap: 8px;
+    margin-top: 36px;
+  }
+
+  .statCard {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .statCard strong {
+    font-size: 14px;
+  }
+
+  .progress {
+    margin-top: 9px;
+  }
+
+  .phone {
+    top: 150px;
+    left: 12px;
+    transform: scale(0.64);
+    transform-origin: top left;
+  }
+
+  .brandText {
+    left: 10px;
+    bottom: 10px;
+    font-size: clamp(88px, 30vw, 130px);
+  }
+}
+
+/* ---------- Mobile (small) ---------- */
+@media (max-width: 480px) {
+  .heading {
+    font-size: 42px;
+  }
+
+  .featureCard {
+    border-radius: 19px;
+  }
+
+  .plus {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .visual {
+    min-height: 500px;
+  }
+
+  .dashboard {
+    left: 56px;
+    min-width: 340px;
+  }
+
+  .statCard span {
+    font-size: 8px;
+  }
+
+  .statCard strong {
+    font-size: 13px;
+  }
+
+  .phone {
+    top: 140px;
+    transform: scale(0.58);
+  }
+}
+
+/* ---------- Motion preference ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .featureCard,
+  .plus,
+  .cardContent {
+    transition: none;
+  }
+}

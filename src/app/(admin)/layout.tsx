@@ -1,24 +1,17 @@
-import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { ROUTES } from "@/config/app";
+import { requireUser } from "@/server/guards";
 import { AdminSidebar } from "@/features/admin/components/admin-sidebar";
 import { AdminTopbar } from "@/features/admin/components/admin-topbar";
-import type { SessionUser } from "@/types";
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-
-  if (!session?.user) redirect(ROUTES.login);
-  if (session.user.role !== "ADMIN") redirect(ROUTES.dashboard);
-
-  const user = {
-    ...session.user,
-    email: session.user.email ?? "",
-  } satisfies SessionUser;
+  const user = await requireUser(ROUTES.admin);
+  // Role comes from the database: a demoted admin loses access immediately.
+  if (user.role !== "ADMIN") redirect(ROUTES.dashboard);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#F5F9FE" }}>

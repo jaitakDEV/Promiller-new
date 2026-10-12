@@ -126,7 +126,6 @@ export function ContactSection({
         await onSubmit(data);
       } else {
         // No handler passed yet: just log so the UI can be tested.
-        console.info("Contact form submitted", data);
       }
       form.reset();
       setStatus("success");

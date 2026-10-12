@@ -79,7 +79,7 @@ export default async function AdminProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <PasswordChangeForm userId={user.id} />
+          <PasswordChangeForm />
         </CardContent>
       </Card>
     </div>

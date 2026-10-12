@@ -8,7 +8,7 @@ export default function HeroSection() {
       <CloudShader className="absolute inset-0" />
 
       {/* navbar */}
-      <nav className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 md:px-8">
+      {/* <nav className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 md:px-8">
         <div className="flex items-center gap-2">
           <Image
             src="/ProMiller-logo.webp"
@@ -47,10 +47,10 @@ export default function HeroSection() {
             Get started
           </a>
         </div>
-      </nav>
+      </nav> */}
 
       {/* hero */}
-      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pt-12 text-center md:pt-20">
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pt-12 text-center md:pt-30">
         <h1 className="text-4xl font-semibold tracking-tight text-white drop-shadow-md md:text-6xl lg:text-7xl">
           Milling above <br className="hidden md:block" /> the clouds
         </h1>

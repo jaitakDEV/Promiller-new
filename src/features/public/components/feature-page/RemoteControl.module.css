@@ -1,0 +1,939 @@
+.remoteSection {
+  width: 100%;
+  background: #ffffff;
+  color: #111111;
+}
+
+/* =====================================================
+   STAGE 1
+===================================================== */
+
+.connectionStage {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: #ffffff;
+}
+
+.visualInner {
+  position: relative;
+
+  width: min(700px, 80vw);
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* subtle background glow */
+
+.ambientGlow {
+  position: absolute;
+
+  width: 65%;
+  height: 65%;
+
+  border-radius: 50%;
+
+  background: rgba(35, 255, 140, 0.035);
+
+  filter: blur(70px);
+
+  opacity: 0;
+
+  transition: opacity 1.5s ease;
+}
+
+.started .ambientGlow {
+  opacity: 1;
+}
+
+/* =====================================================
+   RADAR
+===================================================== */
+
+.radar {
+  position: relative;
+
+  width: 80%;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(25, 255, 130, 0.025),
+      transparent 60%
+    );
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+}
+
+/* =====================================================
+   RADAR RINGS
+===================================================== */
+
+.ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(0, 0, 0, 0.09);
+
+  opacity: 0;
+
+  transition: opacity 1s ease;
+}
+
+.started .ring {
+  opacity: 1;
+}
+
+.ringOuter {
+  width: 88%;
+  height: 88%;
+
+  transition-delay: 0.3s;
+}
+
+.ringMiddle {
+  width: 62%;
+  height: 62%;
+
+  transition-delay: 0.45s;
+}
+
+.ringInner {
+  width: 36%;
+  height: 36%;
+
+  transition-delay: 0.6s;
+}
+
+/* grid */
+
+.horizontalLine,
+.verticalLine {
+  position: absolute;
+
+  background: rgba(0, 0, 0, 0.045);
+
+  opacity: 0;
+
+  transition: opacity 1s ease 0.5s;
+}
+
+.started .horizontalLine,
+.started .verticalLine {
+  opacity: 1;
+}
+
+.horizontalLine {
+  width: 100%;
+  height: 1px;
+
+  left: 0;
+  top: 50%;
+}
+
+.verticalLine {
+  width: 1px;
+  height: 100%;
+
+  left: 50%;
+  top: 0;
+}
+
+/* =====================================================
+   CENTER PULSE
+===================================================== */
+
+.center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 20;
+}
+
+.centerDot {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #20dc7a;
+
+  box-shadow:
+    0 0 10px rgba(32, 220, 122, 0.7),
+    0 0 30px rgba(32, 220, 122, 0.25);
+
+  opacity: 0;
+
+  transition: opacity 0.5s ease 0.8s;
+}
+
+.started .centerDot {
+  opacity: 1;
+}
+
+.centerPulse,
+.centerPulseTwo {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 18px;
+  height: 18px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(32, 220, 122, 0.5);
+
+  opacity: 0;
+}
+
+.started .centerPulse {
+  animation: centerPulse 2.5s ease-out infinite;
+  animation-delay: 1s;
+}
+
+.started .centerPulseTwo {
+  animation: centerPulse 2.5s ease-out infinite;
+  animation-delay: 2.25s;
+}
+
+@keyframes centerPulse {
+  0% {
+    width: 18px;
+    height: 18px;
+
+    opacity: 0.8;
+  }
+
+  100% {
+    width: 190px;
+    height: 190px;
+
+    opacity: 0;
+  }
+}
+
+/* =====================================================
+   RADAR SWEEP
+===================================================== */
+
+.sweep {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 50%;
+  height: 50%;
+
+  transform-origin: 0 100%;
+
+  opacity: 0;
+
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(32, 220, 122, 0.16),
+    transparent 35deg
+  );
+
+  z-index: 4;
+}
+
+.started .sweep {
+  opacity: 1;
+
+  animation: sweep 4s linear infinite;
+}
+
+.sweepLine {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  width: 1px;
+  height: 100%;
+
+  background: #20dc7a;
+
+  box-shadow: 0 0 12px rgba(32, 220, 122, 0.8);
+}
+
+@keyframes sweep {
+  from {
+    transform: rotate(-20deg);
+  }
+
+  to {
+    transform: rotate(340deg);
+  }
+}
+
+/* =====================================================
+   STATUS POPUPS
+===================================================== */
+
+.statusCard {
+  position: absolute;
+
+  z-index: 30;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 9px 13px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid rgba(0, 0, 0, 0.09);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.08);
+
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+
+  transform: translateY(10px) scale(0.95);
+
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.started .statusCard {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+}
+
+.cardOne {
+  left: 4%;
+  top: 28%;
+
+  transition-delay: 1.7s;
+}
+
+.cardTwo {
+  right: 2%;
+  top: 35%;
+
+  transition-delay: 2.1s;
+}
+
+.cardThree {
+  left: 12%;
+  bottom: 25%;
+
+  transition-delay: 2.5s;
+}
+
+.cardFour {
+  right: 9%;
+  bottom: 24%;
+
+  transition-delay: 2.9s;
+}
+
+.statusIcon {
+  width: 21px;
+  height: 21px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(32, 220, 122, 0.1);
+
+  color: #16bd68;
+
+  font-size: 10px;
+}
+
+.statusCard small {
+  display: block;
+
+  font-size: 6px;
+
+  letter-spacing: 0.14em;
+
+  color: rgba(0, 0, 0, 0.4);
+
+  margin-bottom: 2px;
+}
+
+.statusCard strong {
+  display: block;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  color: #111111;
+}
+
+/* =====================================================
+   MAP
+===================================================== */
+
+.map {
+  position: absolute;
+
+  inset: 7%;
+
+  z-index: 8;
+
+  opacity: 0;
+
+  transform: scale(0.9);
+
+  clip-path: circle(0% at 50% 50%);
+
+  transition:
+    opacity 1.5s ease 3.2s,
+    transform 1.5s ease 3.2s,
+    clip-path 2s ease 3.2s;
+}
+
+.started .map {
+  opacity: 1;
+
+  transform: scale(1);
+
+  clip-path: circle(75% at 50% 50%);
+}
+
+.mapSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.continent {
+  fill: rgba(0, 0, 0, 0.045);
+
+  stroke: rgba(0, 0, 0, 0.12);
+
+  stroke-width: 1.5;
+}
+
+/* =====================================================
+   CONNECTION LINES
+===================================================== */
+
+.connectionLines {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 12;
+}
+
+.connectionLines path {
+  fill: none;
+
+  stroke: rgba(32, 220, 122, 0.55);
+
+  stroke-width: 0.25;
+
+  stroke-dasharray: 2 2;
+
+  opacity: 0;
+}
+
+.started .connectionLines path {
+  animation: lineReveal 1.2s ease forwards;
+}
+
+.started .connectionLines path:nth-child(1) {
+  animation-delay: 3.8s;
+}
+
+.started .connectionLines path:nth-child(2) {
+  animation-delay: 4s;
+}
+
+.started .connectionLines path:nth-child(3) {
+  animation-delay: 4.2s;
+}
+
+.started .connectionLines path:nth-child(4) {
+  animation-delay: 4.4s;
+}
+
+.started .connectionLines path:nth-child(5) {
+  animation-delay: 4.6s;
+}
+
+@keyframes lineReveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   LOCATION DOTS
+===================================================== */
+
+.location {
+  position: absolute;
+
+  width: 12px;
+  height: 12px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #20dc7a;
+
+  box-shadow:
+    0 0 8px rgba(32, 220, 122, 0.8),
+    0 0 18px rgba(32, 220, 122, 0.4);
+
+  opacity: 0;
+
+  z-index: 15;
+}
+
+.started .location {
+  animation: locationAppear 0.6s ease forwards;
+}
+
+.location-0 {
+  animation-delay: 3.8s !important;
+}
+
+.location-1 {
+  animation-delay: 4s !important;
+}
+
+.location-2 {
+  animation-delay: 4.2s !important;
+}
+
+.location-3 {
+  animation-delay: 4.4s !important;
+}
+
+.location-4 {
+  animation-delay: 4.6s !important;
+}
+
+.location-5 {
+  animation-delay: 4.8s !important;
+}
+
+@keyframes locationAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.location span {
+  position: absolute;
+
+  inset: -5px;
+
+  border: 1px solid rgba(32, 220, 122, 0.4);
+
+  border-radius: 50%;
+
+  animation: locationPulse 2s ease-out infinite;
+}
+
+@keyframes locationPulse {
+  from {
+    transform: scale(0.5);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* =====================================================
+   BOTTOM LABELS
+===================================================== */
+
+.bottomStatus {
+  position: absolute;
+
+  left: 7%;
+  bottom: 7%;
+
+  z-index: 30;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  font-size: 7px;
+
+  letter-spacing: 0.17em;
+
+  color: rgba(0, 0, 0, 0.45);
+
+  opacity: 0;
+
+  transition: opacity 0.8s ease 4.8s;
+}
+
+.started .bottomStatus {
+  opacity: 1;
+}
+
+.bottomStatus span {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #20dc7a;
+
+  box-shadow: 0 0 7px rgba(32, 220, 122, 0.7);
+}
+
+.coordinates {
+  position: absolute;
+
+  right: 7%;
+  bottom: 7%;
+
+  z-index: 30;
+
+  font-size: 7px;
+
+  letter-spacing: 0.14em;
+
+  color: rgba(0, 0, 0, 0.28);
+}
+
+/* =====================================================
+   STAGE 2 — CONTENT
+===================================================== */
+
+.contentStage {
+  width: 100%;
+
+  background: #ffffff;
+
+  padding: 150px 7vw 180px;
+}
+
+.contentContainer {
+  width: 100%;
+  max-width: 1350px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 100px;
+}
+
+.contentLeft {
+  position: relative;
+}
+
+.sectionNumber {
+  font-size: 11px;
+
+  letter-spacing: 0.2em;
+
+  color: rgba(0, 0, 0, 0.28);
+
+  margin-bottom: 38px;
+}
+
+.eyebrow {
+  font-size: 10px;
+
+  letter-spacing: 0.2em;
+
+  color: #19b96a;
+
+  font-weight: 600;
+
+  margin-bottom: 20px;
+}
+
+.contentLeft h2 {
+  margin: 0;
+
+  font-size: clamp(55px, 6vw, 88px);
+
+  line-height: 0.94;
+
+  letter-spacing: -0.06em;
+
+  font-weight: 500;
+
+  color: #111111;
+}
+
+.contentLeft h2 span {
+  color: rgba(17, 17, 17, 0.35);
+}
+
+/* =====================================================
+   CONTENT RIGHT
+===================================================== */
+
+.contentRight {
+  padding-top: 70px;
+
+  max-width: 580px;
+}
+
+.subhead {
+  margin: 0;
+
+  font-size: 22px;
+
+  line-height: 1.4;
+
+  color: #222222;
+}
+
+.description {
+  margin-top: 22px;
+
+  max-width: 520px;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+
+  color: rgba(17, 17, 17, 0.52);
+}
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.features {
+  margin-top: 55px;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feature {
+  min-height: 95px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 18px;
+
+  padding: 25px 20px 20px 0;
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feature:nth-child(even) {
+  padding-left: 25px;
+
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.feature span {
+  font-size: 9px;
+
+  color: #20bd6d;
+
+  letter-spacing: 0.1em;
+}
+
+.feature p {
+  margin: 0;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  color: rgba(0, 0, 0, 0.62);
+}
+
+/* =====================================================
+   DEVICES
+===================================================== */
+
+.deviceLine {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  margin-top: 45px;
+
+  font-size: 8px;
+
+  letter-spacing: 0.18em;
+
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.deviceLine i {
+  display: block;
+
+  width: 25px;
+  height: 1px;
+
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+  .connectionStage {
+    height: 80vh;
+    min-height: 600px;
+  }
+
+  .visualInner {
+    width: 90vw;
+  }
+
+  .contentContainer {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+  }
+
+  .contentRight {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .connectionStage {
+    height: 650px;
+    min-height: 650px;
+  }
+
+  .visualInner {
+    width: 110vw;
+  }
+
+  .radar {
+    width: 78%;
+  }
+
+  .statusCard {
+    padding: 7px 9px;
+  }
+
+  .statusCard strong {
+    font-size: 8px;
+  }
+
+  .statusCard small {
+    font-size: 5px;
+  }
+
+  .cardOne {
+    left: 0;
+  }
+
+  .cardTwo {
+    right: 0;
+  }
+
+  .cardThree {
+    left: 2%;
+  }
+
+  .cardFour {
+    right: 1%;
+  }
+
+  .contentStage {
+    padding: 100px 25px 120px;
+  }
+
+  .contentLeft h2 {
+    font-size: 54px;
+  }
+
+  .subhead {
+    font-size: 19px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature:nth-child(even) {
+    padding-left: 0;
+    border-left: none;
+  }
+}

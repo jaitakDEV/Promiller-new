@@ -1,24 +1,15 @@
-import { auth } from "@/server/auth";
-import { redirect } from "next/navigation";
 import { ROUTES } from "@/config/app";
+import { requireUser } from "@/server/guards";
 import { DashboardSidebar } from "@/features/dashboard/components/dashboard-sidebar";
 import { DashboardTopbar } from "@/features/dashboard/components/dashboard-topbar";
-import type { SessionUser } from "@/types";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-
-  if (!session?.user) redirect(ROUTES.login);
-  if (!session.user.emailVerified) redirect(ROUTES.login + "?error=unverified");
-
-  const user = {
-    ...session.user,
-    email: session.user.email ?? "",
-  } satisfies SessionUser;
+  // Session, active account, verified email and accepted terms: from the database.
+  const user = await requireUser(ROUTES.dashboard);
 
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#F5F9FE" }}>

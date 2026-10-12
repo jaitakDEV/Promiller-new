@@ -1,6 +1,6 @@
 export const APP_NAME = "My SaaS App";
 export const APP_DESCRIPTION = "The best SaaS platform";
-
+export const USER_SEARCH_COOKIE = "admin_user_q";
 export const ROUTES = {
   home: "/",
   login: "/login",
@@ -15,6 +15,8 @@ export const ROUTES = {
   adminUsers: "/admin/users",
   adminProfile: "/admin/profile",
   adminSettings: "/admin/settings",
+  consent: "/consent",
+  calculators: "/calculators",
 } as const;
 
 export const PROTECTED_ROUTES = ["/dashboard", "/admin"] as const;
